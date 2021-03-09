@@ -1,5 +1,8 @@
 import games.SlotsMachine;
 import player.Player;
+import util.RandomFunc;
+
+import java.util.Arrays;
 
 public class Main {
 
@@ -11,6 +14,12 @@ public class Main {
         System.out.println(pTest.getBalance());
 
         SlotsMachine slotsMachine = new SlotsMachine();
+        System.out.println(slotsMachine.play());
+        //slotsMachine.randomXTimes(100);
+
+
+
+        System.out.println(Arrays.toString(RandomFunc.randomBetweenMultipleTimes(0, 10, 25)));
 
     }
 
