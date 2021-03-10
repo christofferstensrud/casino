@@ -1,9 +1,15 @@
 package player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
 
     private String name;
     private double balance;
+
+    private final List<Double> payoutHistory = new ArrayList<>();
+
 
     public Player(String name){
         this.name = name;
@@ -15,8 +21,9 @@ public class Player {
         this.balance = balance;
     }
 
+
     /**
-     * Returns player.Player name
+     * Returns player name as a String
      * @return name
      */
     public String getName() {
@@ -24,14 +31,14 @@ public class Player {
     }
 
     /**
-     * @param name to change player.Player name to
+     * @param name to change player name to
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns player.Player balance
+     * Returns player balance as a Double
      * @return balance
      */
     public double getBalance() {
@@ -58,4 +65,21 @@ public class Player {
     public void removeFromBalance(double value) {
         this.balance -= value;
     }
+
+    /**
+     * Returns the players payout history as a List of doubles
+     * @return payoutHistory
+     */
+    public List<Double> getPayoutHistory() {
+        return payoutHistory;
+    }
+
+    /**
+     * @param payout to add to the payout history
+     */
+    public void addToPayoutHistory(double payout) {
+        this.payoutHistory.add(payout);
+    }
+
+
 }

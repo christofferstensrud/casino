@@ -46,10 +46,10 @@ public class SlotsMachine implements Game{
 
         if(checkThreeEqual(symbol1, symbol2, symbol3)) {
             if (BAR.equals(symbol1)) { // all three are 'BAR'
-                multiplier = 1000;
+                multiplier = 100;
                 System.out.println("BAR!");
             } else if (SEVENS.equals(symbol1)) { // all three are 'SEVENS'
-                multiplier = 777;
+                multiplier = 77;
                 System.out.println("SEVENS!");
             }else{// all three are the same 'Fruit'
                 multiplier = 3;
@@ -78,24 +78,57 @@ public class SlotsMachine implements Game{
 
     }
 
+    public double calculatePayout(double multiplier, double bet) {
+        double payout = multiplier * bet;
+
+        registeredPlayer.addToBalance(payout);
+        registeredPlayer.addToPayoutHistory(payout);
+
+        System.out.println("Updated player balance. New balance: " + registeredPlayer.getBalance());
+
+        return payout;
+    }
+
     public String symbolsToString(Symbol[] symbols){
         StringBuilder result = new StringBuilder();
+        result.append("|");
 
         for (Symbol symbol : symbols) {
+            result.append(" ");
             result.append(symbol.getName());
-            result.append(", ");
+            result.append(" ");
+            result.append("|");
         }
 
         return result.toString();
     }
 
     public String play(double bet) {
-        spinReel();
-        if (checkWin(reelResults)){
-            return "You got: " + symbolsToString(reelResults) + " and WON "+ multiplier + "! Nice play!";
+        if (registeredPlayer == null){
+            throw new NullPointerException("No player detected!");
+        }
+        if (registeredPlayer.getBalance() < 0){
+            System.out.println("Player balance is 0!");
+            return "Please add more to balance before trying again.";
+        }
+        if (registeredPlayer.getBalance() < bet){
+            System.out.println("Player balance too low for that bet!");
+            return "Please change bet.";
+        }
 
-        }else
-            return "You got: " + symbolsToString(reelResults) + " and did not win, try again!";
+        registeredPlayer.removeFromBalance(bet);
+
+        spinReel();
+
+        String result = "Your slots results are: ";
+        if (checkWin(reelResults)) {
+            result += symbolsToString(reelResults) + " Nice play!\n";
+
+        } else {
+            result += symbolsToString(reelResults) + " Try again!\n";
+        }
+        result += "Your payout: " + calculatePayout(multiplier, bet);
+        return result;
     }
 
 }

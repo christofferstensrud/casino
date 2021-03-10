@@ -8,13 +8,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*Player pTest = new Player("Test Testenson");
-        System.out.println(pTest.getBalance());
+        Player pTest = new Player("Test Testenson");
         pTest.addToBalance(30);
-        System.out.println(pTest.getBalance());*/
 
         SlotsMachine slotsMachine = new SlotsMachine();
-        System.out.println(slotsMachine.play(1));
+        slotsMachine.setRegisteredPlayer(pTest);
+        System.out.println(slotsMachine.play(5));
+        System.out.println(slotsMachine.play(5));
+        System.out.println(slotsMachine.play(5));
+        System.out.println(slotsMachine.play(5));
+        System.out.println(slotsMachine.play(5));
+        System.out.println(slotsMachine.play(5));
 
 
 
