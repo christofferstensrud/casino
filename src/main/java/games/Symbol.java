@@ -14,18 +14,34 @@ public class Symbol {
         this.basic = isBasic;
     }
 
+    /**
+     *
+     * @return name of the symbol
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return "symbol" of the symbol
+     */
     public char getSymbol() {
         return symbol;
     }
 
+    /**
+     *
+     * @return symbol value, if needed to rank them accordingly
+     */
     public double getValue() {
         return value;
     }
 
+    /**
+     *
+     * @return true if the symbol is a basic symbol, in slots the basic symbols are the fruits.
+     */
     public boolean getBasic() {
         return basic;
     }

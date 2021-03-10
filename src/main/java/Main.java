@@ -1,8 +1,5 @@
 import games.SlotsMachine;
 import player.Player;
-import util.RandomFunc;
-
-import java.util.Arrays;
 
 public class Main {
 

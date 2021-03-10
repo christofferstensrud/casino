@@ -4,7 +4,16 @@ import player.Player;
 
 public interface Game {
 
+    /**
+     * @return the player registered to this Game.
+     */
     Player getRegisteredPlayer();
-    void setRegisteredPlayer(final Player registeredPlayer);
+
+    /**
+     * Registers the player to this Game.
+     *
+     * @param player the player to register.
+     */
+    void setRegisteredPlayer(final Player player);
 
 }
