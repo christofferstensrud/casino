@@ -1,3 +1,5 @@
+import games.BlackJack;
+import games.BlackJackDefaults;
 import games.SlotsMachine;
 import player.Player;
 
@@ -9,13 +11,22 @@ public class Main {
         pTest.addToBalance(30);
 
         SlotsMachine slotsMachine = new SlotsMachine();
-        slotsMachine.setRegisteredPlayer(pTest);
+        /*slotsMachine.setRegisteredPlayer(pTest);
         System.out.println(slotsMachine.play(5));
         System.out.println(slotsMachine.play(5));
         System.out.println(slotsMachine.play(5));
         System.out.println(slotsMachine.play(5));
         System.out.println(slotsMachine.play(5));
-        System.out.println(slotsMachine.play(5));
+        System.out.println(slotsMachine.play(5));*/
+
+        BlackJack bj = new BlackJack();
+        bj.setRegisteredPlayer(pTest);
+        bj.generateSortedDeck();
+        bj.generateDeckRandom();
+        bj.start();
+
+
+
 
 
 
