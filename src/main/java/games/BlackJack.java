@@ -61,7 +61,6 @@ public class BlackJack implements Game{
 
 
     public void generateDeckRandom(){
-
         System.out.println(sortedDeck);
         System.out.println(Arrays.toString(randomize(sortedDeck.toArray(), sortedDeck.size())));
     }
