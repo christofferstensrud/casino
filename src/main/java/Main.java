@@ -1,7 +1,8 @@
-import games.BlackJack;
-import games.BlackJackDefaults;
+import games.Blackjack;
 import games.SlotsMachine;
 import player.Player;
+
+import java.util.Arrays;
 
 public class Main {
 
@@ -19,10 +20,11 @@ public class Main {
         System.out.println(slotsMachine.play(5));
         System.out.println(slotsMachine.play(5));*/
 
-        BlackJack bj = new BlackJack();
+        Blackjack bj = new Blackjack();
         bj.setRegisteredPlayer(pTest);
         bj.generateSortedDeck();
-        bj.generateDeckRandom();
+        bj.generateMultipleDecks(8);
+        System.out.println(bj.playableDeck);
         bj.start();
 
 

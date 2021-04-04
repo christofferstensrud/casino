@@ -8,11 +8,11 @@ public class RandomUtils {
      * Gives a random integer between two integer bounds.
      *
      * @param floor the lower bound inclusive of the random integer.
-     * @param ceil the upper bound inclusive of the random integer.
+     * @param ceil  the upper bound inclusive of the random integer.
      * @return random integer between floor and ceil
      */
     public static int randomBetween(int floor, int ceil) {
-        Random r = new java.util.Random();
+        Random r = new Random();
         return r.nextInt(ceil + 1) + floor;
     }
 
@@ -20,7 +20,7 @@ public class RandomUtils {
      * Gives a list of random integers between two integer bounds.
      *
      * @param floor the lower bound inclusive of the random integer.
-     * @param ceil the upper bound inclusive of the random integer.
+     * @param ceil  the upper bound inclusive of the random integer.
      * @param numberOfTimes the length of the list.
      * @return list of random integers between floor and ceil
      */
@@ -34,24 +34,27 @@ public class RandomUtils {
     }
 
 
-    // A Function to generate a random permutation of arr[]
-    public static <T> T[] randomize(T[] arr, int n)
+    /**
+     * Generates a random permutation of an array.
+     *
+     * @param array the array to randomize.
+     * @param n     the number of elements to randomize, starting from element number 0 of the array
+     * @param <T>   the object type of the array.
+     * @return a random permutation of the input array
+     */
+    public static <T> T[] randomPermutation(T[] array, int n)
     {
-        // Creating a object for Random class
         Random r = new Random();
 
-        // Start from the last element and swap one by one. We don't
-        // need to run for the first element that's why i > 0
         for (int i = n-1; i > 0; i--) {
 
-            // Pick a random index from 0 to i
+            // pick a random index up to i
             int j = r.nextInt(i+1);
 
-            // Swap arr[i] with the element at random index
-            T temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            T temp = array[i];
+            array[i] = array[j]; // swap the i-th element with the element at the random index
+            array[j] = temp;
         }
-        return arr;
+        return array;
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BlackJackDefaults {
+public class BlackjackDefaults {
 
     public static final Suit SPADE = new Suit("Spade", "♠","♤");
     public static final Suit DIAMOND = new Suit("Diamond", "♦","♢");

@@ -51,10 +51,16 @@ public class Value {
     }
 
     public int getBjValue() {
+        if (this.bjValue == 0){
+            return value;
+        }
         return bjValue;
     }
 
     public int getAltValue() {
+        if (this.altValue == 0){
+            return getBjValue();
+        }
         return altValue;
     }
 }
