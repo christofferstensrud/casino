@@ -4,26 +4,22 @@ import games.interfaces.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import player.Player;
+
+import static games.blackjack.BlackjackDefaults.*;
 
 public class Blackjack implements Game {
 
     public ArrayList<Card> playableDeck;
 
     private Player registeredPlayer;
-    private String currentPlayer;
+    private Player currentPlayer;
 
-    public List<Card> playerHand = new ArrayList<>();
-    private List<Card> dealerHand = new ArrayList<>();
+    private final List<String> turnHistory = new ArrayList<>();
 
-    private int turnIndicator = 0;
-    private List<String> turnHistory = new ArrayList<>();
-
-    private boolean isDealersTurn = false;
     private final List<Action> actions = BlackjackDefaults.ACTIONS;
-
-    //private int maxPlayers = 1;
 
     public Blackjack() {
         ArrayList<Card> sortedDeck = generateSortedDeck(); // generates a standard 52-card deck
@@ -40,64 +36,31 @@ public class Blackjack implements Game {
         this.registeredPlayer = registeredPlayer;
     }
 
-    /**
-     * Calculates the sum of the players hand.
-     *
-     * TODO: Maybe do it so that the sum is tallying, and adds as the player receives a new card instead of adding everything again each time.
-     *
-     * @param hand the hand to calculate.
-     * @return the sum
-     */
-    private int calculateHand(List<Card> hand){
-        int sum = 0;
-        int altSum = 0; // altSum will differ from sum only if the player has a soft hand (an ace)
-
-        for (Card card : hand) {
-            sum += card.getValue().getBjValue();
-            altSum += card.getValue().getAltValue();
-        }
-
-        if (altSum > 21){ // player busted
-            return altSum;
-        }
-
-        if (sum > 21){
-            return altSum;
-        }
-
-        return sum;
-    }
-
-    private String playerBust(Player player, int sum){
-        return player.getName() +
-                "have" +
-                sum +
-                ", and busted.";
-    }
-
-    public void turn(List<Card> hand){
-        if (isDealersTurn) {
-            currentPlayer = "DEALER";
-
-            while (calculateHand(hand) <= 17) {
-                hit(hand);
-            }
-            stand(hand);
-        }else {
-            currentPlayer = registeredPlayer.getName();
-
-
-        }
+    private void nextPlayer(){
+        if (currentPlayer == DEALER)
+            currentPlayer = registeredPlayer;
+        else
+            currentPlayer = DEALER;
     }
 
 
-    // Turnhistory Functions
+
+
+    private void playerBust(Player player){
+        addToHistory(player.getName() +
+                " busted.");
+
+    }
+
+
+    // History functions
 
     public String getHistory() {
         StringBuilder history = new StringBuilder();
 
         for (String line : turnHistory) {
             history.append(line);
+            history.append("\n");
         }
         return history.toString();
     }
@@ -106,63 +69,146 @@ public class Blackjack implements Game {
         turnHistory.add(event);
     }
 
-    private String createEvent(Player player, String action){
+    // if no cards drawn
+    private String createEvent(Player player, Action action){
         return player.getName() +
                 " " +
-                action +
+                action.getName() +
                 "s";
     }
 
-    private String createEvent(Player player, String action, Card card){
+    // if cards are being dealt in the beginning
+    private String createEvent(Player player, Card card){
+        return player.getName() +
+                " got " +
+                card +
+                ". They now have: " +
+                player.getHand() +
+                ". Total: " +
+                player.getTotalSum();
+    }
+
+    // if cards are being hit
+    private String createEvent(Player player, Action action, Card card){
         return player.getName() +
                 " " +
-                action +
+                action.getName() +
                 "s, they got " +
                 card +
+                ". They now have: " +
+                player.getHand() +
                 ". Total: " +
-                calculateHand(playerHand);
+                player.getTotalSum();
     }
 
 
 
     // Actions
-    private List<String> getAvailableActions() {
-        return null;
+
+    /**
+     * Filters out all unavailable actions
+     * @return list of available actions
+     */
+    private List<Action> getAvailableActions() {
+        return actions
+                .stream()
+                .filter(Action::isAvailable)
+                .collect(Collectors.toList());
     }
-    public void hit(List<Card> hand) {
+
+    private void updateAvailableActions(Player player){
+        if (player.getSoftSum() > 21){
+
+        }
+    }
+
+
+    public void hit(Player player) {
+        if(!getAvailableActions().contains(HIT)){
+            throw new IllegalCallerException("Action 'hit' is unavailable");
+        }
+
+        deal(player, HIT);
+    }
+
+    public void stand(Player player) {
+        if(!getAvailableActions().contains(STAND)){
+            throw new IllegalCallerException("Action 'stand' is unavailable");
+        }
+
+        addToHistory(createEvent(player, STAND));
+        nextPlayer();
+    }
+
+    public void doubleDown(Player player) {
+        if(!getAvailableActions().contains(DOUBLE_DOWN)){
+            throw new IllegalCallerException("Action 'double down' is unavailable");
+        }
+
+        deal(player, DOUBLE_DOWN);
+
+    }
+
+    public void split(Player player) {
+        if(!getAvailableActions().contains(SPLIT)){
+            throw new IllegalCallerException("Action 'split' is unavailable");
+        }
+
+        addToHistory(createEvent(player, SPLIT));
+    }
+
+    public void surrender(Player player) {
+        if(!getAvailableActions().contains(SURRENDER)){
+            throw new IllegalCallerException("Action 'surrender' is unavailable");
+        }
+
+        addToHistory(createEvent(player, SURRENDER));
+    }
+
+    private void deal(Player player, Action action) {
         Card newCard = playableDeck.remove(0); // removes the card on the top of the deck
-        hand.add(newCard);
-        addToHistory(createEvent(registeredPlayer, "hit", newCard));
+        player.addCardToHand(newCard);
+
+        addToHistory(createEvent(player, action, newCard));
     }
 
-    public void stand(List<Card> hand) {
-        addToHistory(createEvent(registeredPlayer, "stand"));
+    private void deal(Player player) {
+        Card newCard = playableDeck.remove(0); // removes the card on the top of the deck
+        player.addCardToHand(newCard);
+
+        addToHistory(createEvent(player, newCard));
     }
 
-    public void doubleDown(List<Card> hand) {
-        addToHistory(createEvent(registeredPlayer, "double down"));
-        hit(hand);
 
-    }
 
-    public void split(List<Card> hand) {
+    // Playing blackjack
+    public void playDealer() {
 
-    }
-
-    public void surrender(List<Card> hand) {
-
-    }
-
-    private void deal() {
+        while (DEALER.getHardSum() < 17 ||
+                (DEALER.getSoftSum() <= 17 &&
+                        DEALER.getSoftSum() != DEALER.getHardSum())) {
+            hit(DEALER);
+            if (DEALER.getSoftSum() > 21){
+                playerBust(DEALER);
+                break;
+            }
+        }
+        stand(DEALER);
 
     }
 
 
     // Starting function
     public void start() {
-        /*playerHand.add(deck.remove(0));
-        dealerHand.add(deck.remove(0));
-        playerHand.add(deck.remove(0));*/
+        currentPlayer = registeredPlayer;
+        deal(currentPlayer);
+        nextPlayer();
+        deal(currentPlayer);
+        nextPlayer();
+        deal(currentPlayer);
+        nextPlayer();
+        deal(currentPlayer);
+        nextPlayer();
 
     }
 
@@ -199,14 +245,14 @@ public class Blackjack implements Game {
         StringBuilder result = new StringBuilder();
 
         result.append("Dealers hand: [");
-        for (Card card : dealerHand) {
+        for (Card card : DEALER.getHand()) {
             result.append(card.toString());
         }
         result.append("]\n");
 
 
         result.append("Players hand: [");
-        for (Card card : playerHand) {
+        for (Card card : registeredPlayer.getHand()) {
             result.append(card.toString());
         }
         result.append("]\n");

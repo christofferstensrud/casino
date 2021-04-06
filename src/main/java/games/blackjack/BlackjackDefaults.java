@@ -1,9 +1,13 @@
 package games.blackjack;
 
+import player.Player;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class BlackjackDefaults {
+
+    static final Player DEALER = new Player("Dealer");
 
     private static final Suit SPADE = new Suit("Spade", "♠","♤");
     private static final Suit DIAMOND = new Suit("Diamond", "♦","♢");
@@ -29,13 +33,26 @@ public class BlackjackDefaults {
     static final List<Value> VALUES = Arrays.asList(KING,QUEEN,JACK,TEN,NINE,EIGHT,SEVEN,SIX,FIVE,FOUR,THREE,DEUCE,ACE);
     static final List<Value> FACE_VALUES = Arrays.asList(KING,QUEEN,JACK);
 
-    private static final Action HIT = new Action("Hit", true);
-    private static final Action STAND = new Action("Stand", true);
-    private static final Action DOUBLE_DOWN = new Action("Double down", true);
-    private static final Action SPLIT = new Action("Split", true);
-    private static final Action SURRENDER = new Action("Surrender", true);
+    static final Action HIT = new Action("Hit", true);
+    static final Action STAND = new Action("Stand", true);
+    static final Action DOUBLE_DOWN = new Action("Double down", true);
+    static final Action SPLIT = new Action("Split", true);
+    static final Action SURRENDER = new Action("Surrender", true);
 
     static final List<Action> ACTIONS = Arrays.asList(HIT, STAND, DOUBLE_DOWN, SPLIT, SURRENDER);
 
+    void setAllAvailable(boolean isAvailable){
+        for (Action action:
+                ACTIONS) {
+            action.setAvailable(isAvailable);
+        }
+    }
+
+    void setAvailableMult(boolean isAvailable, Action... actions){
+        for (Action action:
+             actions) {
+            action.setAvailable(isAvailable);
+        }
+    }
 
 }

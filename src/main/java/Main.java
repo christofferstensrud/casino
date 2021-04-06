@@ -20,10 +20,10 @@ public class Main {
 
         Blackjack bj = new Blackjack();
         bj.setRegisteredPlayer(pTest);
-        System.out.println(bj.playableDeck);
-        bj.hit(bj.playerHand);
+        bj.start();
+
+        bj.playDealer();
         System.out.println(bj.getHistory());
-        System.out.println(bj.playableDeck);
 
 
 

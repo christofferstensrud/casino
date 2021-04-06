@@ -1,5 +1,7 @@
 package player;
 
+import games.blackjack.Card;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,10 @@ public class Player {
 
     private String name;
     private double balance;
+
+    private final List<Card> hand = new ArrayList<>();
+    private int hardSum = 0;
+    private int softSum = 0;
 
     private final List<Double> payoutHistory = new ArrayList<>();
 
@@ -81,5 +87,36 @@ public class Player {
         this.payoutHistory.add(payout);
     }
 
+    /**
+     * Returns player hand
+     * @return list of cards
+     */
+    public List<Card> getHand() {
+        return hand;
+    }
+
+    /**
+     * @param card to add to the hand
+     */
+    public void addCardToHand(Card card) {
+        hand.add(card);
+        hardSum += card.getValue().getBjValue();
+        softSum += card.getValue().getAltValue();
+    }
+
+    public int getHardSum() {
+        return hardSum;
+    }
+
+    public int getSoftSum() {
+        return softSum;
+    }
+
+    public String getTotalSum(){
+        if (hardSum != softSum && hardSum < 21){
+            return softSum+"/"+hardSum;
+        }
+        return Integer.toString(softSum);
+    }
 
 }
