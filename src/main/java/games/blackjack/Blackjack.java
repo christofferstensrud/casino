@@ -1,13 +1,11 @@
 package games.blackjack;
 
 import games.interfaces.Game;
-import player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static games.blackjack.BlackjackDefaults.SUITS;
-import static games.blackjack.BlackjackDefaults.VALUES;
+import player.Player;
 
 public class Blackjack implements Game {
 
@@ -23,6 +21,7 @@ public class Blackjack implements Game {
     private List<String> turnHistory = new ArrayList<>();
 
     private boolean isDealersTurn = false;
+    private final List<Action> actions = BlackjackDefaults.ACTIONS;
 
     //private int maxPlayers = 1;
 
@@ -51,15 +50,14 @@ public class Blackjack implements Game {
      */
     private int calculateHand(List<Card> hand){
         int sum = 0;
-        int altSum = 0;
+        int altSum = 0; // altSum will differ from sum only if the player has a soft hand (an ace)
 
         for (Card card : hand) {
             sum += card.getValue().getBjValue();
             altSum += card.getValue().getAltValue();
         }
 
-        if (altSum > 21){
-            playerBust(altSum);
+        if (altSum > 21){ // player busted
             return altSum;
         }
 
@@ -70,8 +68,11 @@ public class Blackjack implements Game {
         return sum;
     }
 
-    private void playerBust(int sum){
-        System.out.println(currentPlayer + " busted, they had " + sum);
+    private String playerBust(Player player, int sum){
+        return player.getName() +
+                "have" +
+                sum +
+                ", and busted.";
     }
 
     public void turn(List<Card> hand){
@@ -88,6 +89,7 @@ public class Blackjack implements Game {
 
         }
     }
+
 
     // Turnhistory Functions
 
@@ -124,6 +126,9 @@ public class Blackjack implements Game {
 
 
     // Actions
+    private List<String> getAvailableActions() {
+        return null;
+    }
     public void hit(List<Card> hand) {
         Card newCard = playableDeck.remove(0); // removes the card on the top of the deck
         hand.add(newCard);
@@ -135,6 +140,8 @@ public class Blackjack implements Game {
     }
 
     public void doubleDown(List<Card> hand) {
+        addToHistory(createEvent(registeredPlayer, "double down"));
+        hit(hand);
 
     }
 
@@ -150,9 +157,6 @@ public class Blackjack implements Game {
 
     }
 
-    private List<String> getAvailableActions() {
-        return null;
-    }
 
     // Starting function
     public void start() {
@@ -172,8 +176,8 @@ public class Blackjack implements Game {
     public ArrayList<Card> generateSortedDeck(){
         ArrayList<Card> sortedDeck = new ArrayList<>(52);
 
-        for (Suit suit : SUITS) {
-            for (Value value : VALUES) {
+        for (Suit suit : BlackjackDefaults.SUITS) {
+            for (Value value : BlackjackDefaults.VALUES) {
                 sortedDeck.add(new Card(suit, value));
             }
         }
