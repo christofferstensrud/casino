@@ -1,33 +1,34 @@
-package games;
+package games.blackjack;
 
+import games.interfaces.Game;
 import player.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static games.BlackjackDefaults.SUITS;
-import static games.BlackjackDefaults.VALUES;
-import static util.RandomUtils.*;
+import static games.blackjack.BlackjackDefaults.SUITS;
+import static games.blackjack.BlackjackDefaults.VALUES;
 
-public class Blackjack implements Game{
+public class Blackjack implements Game {
+
+    public ArrayList<Card> playableDeck;
 
     private Player registeredPlayer;
     private String currentPlayer;
-    private List<Card> playerHand = new ArrayList<>();
+
+    public List<Card> playerHand = new ArrayList<>();
     private List<Card> dealerHand = new ArrayList<>();
 
-    private final List<Card> sortedDeck = new ArrayList<>();
-    public List<Card> playableDeck = new ArrayList<>();
-
-    private String[] turnHistory = new String[0];
+    private int turnIndicator = 0;
+    private List<String> turnHistory = new ArrayList<>();
 
     private boolean isDealersTurn = false;
 
     //private int maxPlayers = 1;
 
     public Blackjack() {
-
+        ArrayList<Card> sortedDeck = generateSortedDeck(); // generates a standard 52-card deck
+        playableDeck = generateMultipleDecks(sortedDeck, 8); // shuffles 8 standard decks together
     }
 
     @Override
@@ -88,15 +89,49 @@ public class Blackjack implements Game{
         }
     }
 
+    // Turnhistory Functions
+
+    public String getHistory() {
+        StringBuilder history = new StringBuilder();
+
+        for (String line : turnHistory) {
+            history.append(line);
+        }
+        return history.toString();
+    }
+
+    private void addToHistory(String event){
+        turnHistory.add(event);
+    }
+
+    private String createEvent(Player player, String action){
+        return player.getName() +
+                " " +
+                action +
+                "s";
+    }
+
+    private String createEvent(Player player, String action, Card card){
+        return player.getName() +
+                " " +
+                action +
+                "s, they got " +
+                card +
+                ". Total: " +
+                calculateHand(playerHand);
+    }
+
+
+
+    // Actions
     public void hit(List<Card> hand) {
-        System.out.println(currentPlayer + " hits.");
-        hand.add(playableDeck.remove(0)); // removes the card on the top of the deck and gives it to the player
-        //calculateHand(hand);
+        Card newCard = playableDeck.remove(0); // removes the card on the top of the deck
+        hand.add(newCard);
+        addToHistory(createEvent(registeredPlayer, "hit", newCard));
     }
 
     public void stand(List<Card> hand) {
-        System.out.println(currentPlayer + " stands.");
-
+        addToHistory(createEvent(registeredPlayer, "stand"));
     }
 
     public void doubleDown(List<Card> hand) {
@@ -111,7 +146,15 @@ public class Blackjack implements Game{
 
     }
 
+    private void deal() {
 
+    }
+
+    private List<String> getAvailableActions() {
+        return null;
+    }
+
+    // Starting function
     public void start() {
         /*playerHand.add(deck.remove(0));
         dealerHand.add(deck.remove(0));
@@ -119,44 +162,34 @@ public class Blackjack implements Game{
 
     }
 
+
+    // Helping functions
     /**
      * Helper function to generate a standard 52-card deck.
      * In the order: ♤->♢->♧->♡
      * King down to Ace
      */
-    public void generateSortedDeck(){
+    public ArrayList<Card> generateSortedDeck(){
+        ArrayList<Card> sortedDeck = new ArrayList<>(52);
+
         for (Suit suit : SUITS) {
             for (Value value : VALUES) {
                 sortedDeck.add(new Card(suit, value));
             }
         }
+        return sortedDeck;
     }
 
-    public void generateMultipleDecks(int numberOfDecks){
-        List<Card> deck = new ArrayList<>();
+    public ArrayList<Card> generateMultipleDecks(List<Card> initialList, int numberOfTimes){
+        ArrayList<Card> deck = new ArrayList<>();
 
-        for (int i = 0; i <= numberOfDecks; i++) {
-            deck.addAll(sortedDeck);
+        for (int i = 0; i < numberOfTimes; i++) {
+            deck.addAll(initialList);
         }
+        java.util.Collections.shuffle(deck);
 
-        Card[] deckArr = deck.toArray(Card[]::new); //convert List<Card> to Card[]
-
-        //generate a random permutation of deckArr
-        playableDeck = Arrays.asList(randomPermutation(deckArr, deckArr.length));
+       return deck;
     }
-
-
-    public String toStringDeck(List<Card> cards){
-        StringBuilder result = new StringBuilder();
-
-        for (Card card : cards) {
-            result.append(card.toString());
-            result.append(", ");
-        }
-
-        return result.toString();
-    }
-
 
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -176,7 +209,5 @@ public class Blackjack implements Game{
 
         return result.toString();
     }
-
-
 
 }

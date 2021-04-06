@@ -1,18 +1,19 @@
-package games;
+package games.slotmachine;
 
+import games.interfaces.Game;
 import player.Player;
 import util.RandomUtils;
 import util.EqualityUtils;
 
-import static games.SlotsMachineDefaults.*;
+import static games.slotmachine.SlotMachineDefaults.*;
 
-public class SlotsMachine implements Game{
+public class SlotMachine implements Game {
 
     private Player registeredPlayer;
-    private final Symbol[] reelResults= new Symbol[3];
+    private final SlotSymbol[] reelResults= new SlotSymbol[3];
     private double multiplier = 0;
 
-    public SlotsMachine(){
+    public SlotMachine(){
 
     }
 
@@ -36,18 +37,18 @@ public class SlotsMachine implements Game{
      * @param result the list of resulting symbols
      * @return true if the symbols are in a winning configuration
      */
-    private boolean checkWin(Symbol[] result){
-        Symbol symbol1 = result[0];
-        Symbol symbol2 = result[1];
-        Symbol symbol3 = result[2];
+    private boolean checkWin(SlotSymbol[] result){
+        SlotSymbol slotSymbol1 = result[0];
+        SlotSymbol slotSymbol2 = result[1];
+        SlotSymbol slotSymbol3 = result[2];
         System.out.println("Checking win condition:");
 
-        if(EqualityUtils.checkThreeEqual(symbol1, symbol2, symbol3)) { // checks if all three are equal to each other
-            if (BAR.equals(symbol1)) { // all three are 'BAR'
+        if(EqualityUtils.checkThreeEqual(slotSymbol1, slotSymbol2, slotSymbol3)) { // checks if all three are equal to each other
+            if (BAR.equals(slotSymbol1)) { // all three are 'BAR'
                 multiplier = 100;
                 System.out.println("BAR!");
 
-            } else if (SEVENS.equals(symbol1)) { // all three are 'SEVENS'
+            } else if (SEVENS.equals(slotSymbol1)) { // all three are 'SEVENS'
                 multiplier = 77;
                 System.out.println("SEVENS!");
 
@@ -59,7 +60,7 @@ public class SlotsMachine implements Game{
             return true;
         }
 
-        if(symbol1.getBasic() && symbol2.getBasic() && symbol3.getBasic()) { // all three are different fruits
+        if(slotSymbol1.getBasic() && slotSymbol2.getBasic() && slotSymbol3.getBasic()) { // all three are different fruits
             multiplier = 1.5;
             System.out.println("DIFFERENT FRUITS!");
             return true;
@@ -80,8 +81,8 @@ public class SlotsMachine implements Game{
     public void spinReel() {
         System.out.println("Spinning...");
         for (int i = 0; i < 3; i++) {
-            int result = RandomUtils.randomBetween(0, SYMBOLS.size() - 1);
-            reelResults[i] = SYMBOLS.get(result);
+            int result = RandomUtils.randomBetween(0, SLOTS_SYMBOLS.size() - 1);
+            reelResults[i] = SLOTS_SYMBOLS.get(result);
         }
 
     }
@@ -110,16 +111,16 @@ public class SlotsMachine implements Game{
     /**
      * Helper function to convert a list of symbols to readable, printable String.
      *
-     * @param symbols a list of Symbol types.
+     * @param slotSymbols a list of Symbol types.
      * @return String on the format | Symbol | Symbol | Symbol |.
      */
-    public String symbolsToString(Symbol[] symbols){
+    public String symbolsToString(SlotSymbol[] slotSymbols){
         StringBuilder result = new StringBuilder();
         result.append("|");
 
-        for (Symbol symbol : symbols) {
+        for (SlotSymbol slotSymbol : slotSymbols) {
             result.append(" ");
-            result.append(symbol.getName());
+            result.append(slotSymbol.getName());
             result.append(" ");
             result.append("|");
         }

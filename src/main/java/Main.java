@@ -1,8 +1,6 @@
-import games.Blackjack;
-import games.SlotsMachine;
+import games.blackjack.Blackjack;
+import games.slotmachine.SlotMachine;
 import player.Player;
-
-import java.util.Arrays;
 
 public class Main {
 
@@ -11,7 +9,7 @@ public class Main {
         Player pTest = new Player("Test Testenson");
         pTest.addToBalance(30);
 
-        SlotsMachine slotsMachine = new SlotsMachine();
+        SlotMachine slotMachine = new SlotMachine();
         /*slotsMachine.setRegisteredPlayer(pTest);
         System.out.println(slotsMachine.play(5));
         System.out.println(slotsMachine.play(5));
@@ -22,10 +20,10 @@ public class Main {
 
         Blackjack bj = new Blackjack();
         bj.setRegisteredPlayer(pTest);
-        bj.generateSortedDeck();
-        bj.generateMultipleDecks(8);
         System.out.println(bj.playableDeck);
-        bj.start();
+        bj.hit(bj.playerHand);
+        System.out.println(bj.getHistory());
+        System.out.println(bj.playableDeck);
 
 
 

@@ -1,13 +1,13 @@
-package games;
+package games.slotmachine;
 
-public class Symbol {
+public class SlotSymbol {
 
     private final String name;
     private final char symbol;
     private final double value;
     private final boolean basic;
 
-    public Symbol(String name, char symbol, double value, boolean isBasic){
+    public SlotSymbol(String name, char symbol, double value, boolean isBasic){
         this.name = name;
         this.symbol = symbol;
         this.value = value;
@@ -24,7 +24,7 @@ public class Symbol {
 
     /**
      *
-     * @return "symbol" of the symbol
+     * @return symbol of the slotssymbol
      */
     public char getSymbol() {
         return symbol;
