@@ -53,11 +53,15 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        //Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
-        Group root = new Group();
-        Scene scene = new Scene(root, Color.BLACK);
-        stage.setScene(scene);
 
         //Set app icon and title
         FileInputStream iconInput = new FileInputStream("src\\gui_images\\icon.png");
@@ -65,7 +69,5 @@ public class Main extends Application{
         stage.getIcons().add(icon);
         stage.setTitle("Casino");
 
-
-        stage.show();
     }
 }
