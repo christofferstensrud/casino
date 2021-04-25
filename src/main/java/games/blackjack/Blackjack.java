@@ -46,10 +46,12 @@ public class Blackjack implements Game {
 
 
 
-    private void playerBust(Player player){
-        addToHistory(player.getName() +
-                " busted.");
+    private void checkBust(Player player){
+        if (player.getSoftSum() > 21) {
+            addToHistory(player.getName() +
+                    " busted.");
 
+        }
     }
 
 
@@ -129,6 +131,7 @@ public class Blackjack implements Game {
         }
 
         deal(player, HIT);
+        checkBust(player);
     }
 
     public void stand(Player player) {
@@ -146,6 +149,7 @@ public class Blackjack implements Game {
         }
 
         deal(player, DOUBLE_DOWN);
+        checkBust(player);
 
     }
 
@@ -188,10 +192,6 @@ public class Blackjack implements Game {
                 (DEALER.getSoftSum() <= 17 &&
                         DEALER.getSoftSum() != DEALER.getHardSum())) {
             hit(DEALER);
-            if (DEALER.getSoftSum() > 21){
-                playerBust(DEALER);
-                break;
-            }
         }
         stand(DEALER);
 
