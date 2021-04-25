@@ -2,6 +2,8 @@ package player;
 
 import games.blackjack.Card;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class Player {
     private int hardSum = 0;
     private int softSum = 0;
 
-    private final List<Double> payoutHistory = new ArrayList<>();
+    private final List<String> payoutHistory = new ArrayList<>();
 
 
     public Player(String name){
@@ -73,18 +75,43 @@ public class Player {
     }
 
     /**
-     * Returns the players payout history as a List of doubles
+     * Returns the players payout history as a list of Strings
      * @return payoutHistory
      */
-    public List<Double> getPayoutHistory() {
+    public List<String> getPayoutHistory() {
         return payoutHistory;
     }
 
     /**
      * @param payout to add to the payout history
      */
-    public void addToPayoutHistory(double payout) {
-        this.payoutHistory.add(payout);
+    public void addToPayoutHistory(String game, String resultsAsString, double bet, double payout) {
+        this.payoutHistory.add(game +
+                " | " +
+                resultsAsString +
+                " | " +
+                bet +
+                " | " +
+                payout);
+    }
+
+    public void printPayoutToFile() throws IOException {
+        try {
+            FileWriter payoutHistoryFile = new FileWriter(getName() +" payout history.txt");
+
+            StringBuilder result = new StringBuilder();
+            for (String line : payoutHistory) {
+                result.append(line);
+                result.append("\n");
+            }
+            String header = "Game | Results | Bet | Payout \n";
+            payoutHistoryFile.write(header);
+            payoutHistoryFile.append(result.toString());
+            payoutHistoryFile.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**

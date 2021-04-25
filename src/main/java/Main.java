@@ -1,29 +1,55 @@
 import games.blackjack.Blackjack;
-import games.slotmachine.SlotMachine;
+import games.slot.Slot;
 import player.Player;
+
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Player pTest = new Player("Test Testenson");
-        pTest.addToBalance(30);
+        pTest.addToBalance(100);
 
-        SlotMachine slotMachine = new SlotMachine();
-        /*slotsMachine.setRegisteredPlayer(pTest);
-        System.out.println(slotsMachine.play(5));
-        System.out.println(slotsMachine.play(5));
-        System.out.println(slotsMachine.play(5));
-        System.out.println(slotsMachine.play(5));
-        System.out.println(slotsMachine.play(5));
-        System.out.println(slotsMachine.play(5));*/
+        Slot slot = new Slot();
+        slot.setRegisteredPlayer(pTest);
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(slot.play(5));
+        System.out.println(pTest.getPayoutHistory());
+        pTest.printPayoutToFile();
 
-        Blackjack bj = new Blackjack();
+        /*Blackjack bj = new Blackjack();
         bj.setRegisteredPlayer(pTest);
         bj.start();
 
         bj.playDealer();
-        System.out.println(bj.getHistory());
+        System.out.println(bj.getHistory());*/
 
 
 

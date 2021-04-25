@@ -1,22 +1,28 @@
-package games.slotmachine;
+package games.slot;
 
+import games.blackjack.Action;
 import games.interfaces.Game;
 import player.Player;
 import util.RandomUtils;
 import util.EqualityUtils;
 
-import static games.slotmachine.SlotMachineDefaults.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class SlotMachine implements Game {
+import static games.slot.SlotDefaults.*;
+
+public class Slot implements Game {
 
     private Player registeredPlayer;
     private final SlotSymbol[] reelResults= new SlotSymbol[3];
     private double multiplier = 0;
 
-    public SlotMachine(){
+    public Slot(){
 
     }
-
 
     @Override
     public Player getRegisteredPlayer() {
@@ -30,9 +36,15 @@ public class SlotMachine implements Game {
 
 
     /**
-     * Checks if player wins the current spin, and also sets the multiplier.
+     * Checks if player wins the current spin, and also sets the correct multiplier.
      *
-     * TODO: Separate the check from the multiplier setter.
+     * Has 3 outcomes:
+     *
+     * <ul>
+     *     <li>Same symbols</li>
+     *     <li>Different fruits</li>
+     *     <li>No win</li>
+     * </ul>
      *
      * @param result the list of resulting symbols
      * @return true if the symbols are in a winning configuration
@@ -44,24 +56,13 @@ public class SlotMachine implements Game {
         System.out.println("Checking win condition:");
 
         if(EqualityUtils.checkThreeEqual(slotSymbol1, slotSymbol2, slotSymbol3)) { // checks if all three are equal to each other
-            if (BAR.equals(slotSymbol1)) { // all three are 'BAR'
-                multiplier = 100;
-                System.out.println("BAR!");
-
-            } else if (SEVENS.equals(slotSymbol1)) { // all three are 'SEVENS'
-                multiplier = 77;
-                System.out.println("SEVENS!");
-
-            }else{ // all three are the same type of 'Fruit'
-                multiplier = 9;
-                System.out.println("SAME FRUITS!");
-
-            }
+            multiplier = slotSymbol1.getMultiplierValue();
+            System.out.println("SAME SYMBOLS!");
             return true;
         }
 
         if(slotSymbol1.getBasic() && slotSymbol2.getBasic() && slotSymbol3.getBasic()) { // all three are different fruits
-            multiplier = 1.5;
+            multiplier = slotSymbol1.getMultiplierValue()/2;
             System.out.println("DIFFERENT FRUITS!");
             return true;
         }
@@ -76,7 +77,8 @@ public class SlotMachine implements Game {
     /**
      * Method to "spin" the reels.
      *
-     * TODO: Clean up. I dont think it's good practise with void, no-argument methods...
+     * Updates reelResults with three random symbols.
+     *
      */
     public void spinReel() {
         System.out.println("Spinning...");
@@ -91,8 +93,6 @@ public class SlotMachine implements Game {
      * Multiplies the bet with the multiplier.
      * Also adds that result to the player balance and payout history.
      *
-     * TODO: Clean up. Should maybe not do all this in one method.
-     *
      * @param multiplier the multiplier to multiply the bet with
      * @param bet the bet the player makes
      * @return the resulting payout.
@@ -101,7 +101,7 @@ public class SlotMachine implements Game {
         double payout = multiplier * bet;
 
         registeredPlayer.addToBalance(payout);
-        registeredPlayer.addToPayoutHistory(payout);
+        registeredPlayer.addToPayoutHistory("Slots", symbolsToString(reelResults), bet, payout);
 
         System.out.println("Updated player balance. New balance: " + registeredPlayer.getBalance());
 
@@ -109,20 +109,17 @@ public class SlotMachine implements Game {
     }
 
     /**
-     * Helper function to convert a list of symbols to readable, printable String.
+     * Helper function to convert a list of SlotSymbols to readable, printable String.
      *
-     * @param slotSymbols a list of Symbol types.
-     * @return String on the format | Symbol | Symbol | Symbol |.
+     * @param slotSymbols array of SlotSymbols.
+     * @return SlotSymbols as String.
      */
     public String symbolsToString(SlotSymbol[] slotSymbols){
         StringBuilder result = new StringBuilder();
-        result.append("|");
 
         for (SlotSymbol slotSymbol : slotSymbols) {
-            result.append(" ");
             result.append(slotSymbol.getName());
             result.append(" ");
-            result.append("|");
         }
 
         return result.toString();
