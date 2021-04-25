@@ -1,16 +1,16 @@
-package games;
+package games.slot;
 
-public class Symbol {
+public class SlotSymbol {
 
     private final String name;
     private final char symbol;
-    private final double value;
+    private final double multiplierValue;
     private final boolean basic;
 
-    public Symbol(String name, char symbol, double value, boolean isBasic){
+    public SlotSymbol(String name, char symbol, double multiplierValue, boolean isBasic){
         this.name = name;
         this.symbol = symbol;
-        this.value = value;
+        this.multiplierValue = multiplierValue;
         this.basic = isBasic;
     }
 
@@ -24,7 +24,7 @@ public class Symbol {
 
     /**
      *
-     * @return "symbol" of the symbol
+     * @return symbol of the slotssymbol
      */
     public char getSymbol() {
         return symbol;
@@ -34,8 +34,8 @@ public class Symbol {
      *
      * @return symbol value, if needed to rank them accordingly
      */
-    public double getValue() {
-        return value;
+    public double getMultiplierValue() {
+        return multiplierValue;
     }
 
     /**

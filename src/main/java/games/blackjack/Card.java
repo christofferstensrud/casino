@@ -1,4 +1,4 @@
-package games;
+package games.blackjack;
 
 public class Card{
     private final Suit suit;
