@@ -80,7 +80,7 @@ public class Slot implements Game {
      * Updates reelResults with three random symbols.
      *
      */
-    public void spinReel() {
+    private void spinReel() {
         System.out.println("Spinning...");
         for (int i = 0; i < 3; i++) {
             int result = RandomUtils.randomBetween(0, SLOTS_SYMBOLS.size() - 1);
