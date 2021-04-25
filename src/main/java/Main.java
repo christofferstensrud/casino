@@ -1,6 +1,6 @@
 import games.Blackjack;
 import games.SlotsMachine;
-
+import javafx.scene.control.TextField;
 import player.Player;
 
 import javafx.application.Application;
@@ -17,10 +17,18 @@ import java.util.Arrays;
 
 public class Main extends Application{
 
+    //Setup for slots
+
+    //slotsMachine.setRegisteredPlayer(player);
+
+
+
     public static void main(String[] args) {
         launch(args);
 
-        Player pTest = new Player("Test Testenson");
+
+
+        /*Player pTest = new Player("Test Testenson");
         pTest.addToBalance(30);
 
         SlotsMachine slotsMachine = new SlotsMachine();
@@ -37,7 +45,7 @@ public class Main extends Application{
         bj.generateSortedDeck();
         bj.generateMultipleDecks(8);
         System.out.println(bj.playableDeck);
-        bj.start();
+        bj.start();*/
 
 
 
@@ -51,8 +59,11 @@ public class Main extends Application{
 
     }
 
+
+
     @Override
     public void start(Stage stage) throws Exception {
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
             Scene scene = new Scene(root);
@@ -64,10 +75,15 @@ public class Main extends Application{
 
 
         //Set app icon and title
-        FileInputStream iconInput = new FileInputStream("src\\gui_images\\icon.png");
+        FileInputStream iconInput = new FileInputStream("src\\main\\resources\\icon.png");
         Image icon = new Image(iconInput);
         stage.getIcons().add(icon);
         stage.setTitle("Casino");
+
+
+
+
+
 
     }
 }

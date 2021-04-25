@@ -12,7 +12,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </BorderPane>
-      <Button layoutX="219.0" layoutY="188.0" mnemonicParsing="false" onAction="#playSlots" prefHeight="25.0" prefWidth="163.0" text="Play Slots" />
+      <Button layoutX="219.0" layoutY="188.0" mnemonicParsing="false" onAction="#gotoSlots" prefHeight="25.0" prefWidth="163.0" text="Play Slots" />
       <Button layoutX="219.0" layoutY="234.0" mnemonicParsing="false" onAction="#playBlackJack" prefHeight="25.0" prefWidth="163.0" text="Play Blackjack" />
    </children>
 </AnchorPane>
