@@ -9,38 +9,42 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="800.0" prefWidth="1200.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: Green;">
                <children>
-                  <ImageView id="1" fx:id="FirstSlot" fitHeight="150.0" fitWidth="150.0" layoutX="31.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="1" fx:id="FirstSlot" fitHeight="280.0" fitWidth="280.0" layoutX="91.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/BAR.PNG" />
                      </image></ImageView>
-                  <ImageView id="2" fx:id="SecondSlot" fitHeight="150.0" fitWidth="150.0" layoutX="224.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="2" fx:id="SecondSlot" fitHeight="280.0" fitWidth="280.0" layoutX="462.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/BAR.PNG" />
                      </image></ImageView>
-                  <ImageView id="3" fx:id="ThirdSlot" fitHeight="150.0" fitWidth="150.0" layoutX="416.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="3" fx:id="ThirdSlot" fitHeight="280.0" fitWidth="280.0" layoutX="833.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/BAR.PNG" />
                      </image></ImageView>
                </children>
             </AnchorPane>
-          <AnchorPane fx:id="multiplier" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: LimeGreen;">
+          <AnchorPane fx:id="multiplier" minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="655.0" style="-fx-background-color: LimeGreen;">
                <children>
-                  <Button layoutX="14.0" layoutY="157.0" mnemonicParsing="false" onAction="#gotoMain" text="Exit to menu" />
-                  <Button fx:id="Spin" layoutX="246.0" layoutY="66.0" mnemonicParsing="false" onAction="#getBet" prefHeight="56.0" prefWidth="107.0" text="SPIN">
+                  <Button layoutX="29.0" layoutY="321.0" mnemonicParsing="false" onAction="#gotoMain" prefHeight="53.0" prefWidth="83.0" text="Exit to menu" />
+                  <Button fx:id="Spin" layoutX="519.0" layoutY="76.0" mnemonicParsing="false" onAction="#spin" prefHeight="56.0" prefWidth="200.0" text="SPIN">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="inputBet" layoutX="225.0" layoutY="145.0" onAction="#getBet" promptText="Bet" />
-                  <TextField fx:id="wallet" layoutX="422.0" layoutY="145.0" text="Wallet: 100" />
-                  <Text fx:id="winComment" layoutX="130.0" layoutY="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" textAlignment="CENTER" wrappingWidth="338.0" />
-                  <Text fx:id="multip" layoutX="246.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Multiplier: 0.0 x" textAlignment="CENTER" wrappingWidth="107.0" />
+                  <TextField fx:id="inputBet" layoutX="544.0" layoutY="198.0" onAction="#spin" prefHeight="65.0" prefWidth="149.0" promptText="Bet" />
+                  <TextField fx:id="wallet" layoutX="544.0" layoutY="289.0" prefHeight="65.0" prefWidth="149.0" text="Wallet: 100" />
+                  <Text fx:id="winComment" layoutX="369.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="HIT SPIN!" textAlignment="CENTER" wrappingWidth="500.0">
+                     <font>
+                        <Font name="Arial Bold" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="multip" layoutX="565.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Multiplier: 0.0x" textAlignment="CENTER" wrappingWidth="107.0" />
                </children>
             </AnchorPane>
         </items>

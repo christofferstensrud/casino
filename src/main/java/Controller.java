@@ -1,10 +1,10 @@
 import games.slot.Slot;
+import player.Player;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import player.Player;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
@@ -14,7 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Controller {
 
@@ -36,6 +37,11 @@ public class Controller {
     @FXML
     private Text winComment = new Text();
     @FXML
+    private ImageView menuImage1 = new ImageView();
+    @FXML
+    private ImageView menuImage2 = new ImageView();
+
+    @FXML
     Stage stage;
     @FXML
     Scene scene;
@@ -53,78 +59,92 @@ public class Controller {
         }
     }
 
+    /**
+     * Handles bet input from user and spins the slot machine.
+     * Displays images in slots
+     */
     @FXML
-    public void getBet() {
-        if(inputBet.getText() != "") { //TODO Fix validation
-            slotsMachine.play(Integer.parseInt(inputBet.getText()));
-        } else {
-            multip.setText("Bet a valid number!");
+    public void spin() {
+        ArrayList<ImageView> imageViewsList = new ArrayList<>(Arrays.asList(FirstSlot, SecondSlot, ThirdSlot));
+
+        slotsMachine.play(Integer.parseInt(inputBet.getText()));
+
+        for (int i = 0; i<3; i++) {
+            imageViewsList.get(i).setImage(new Image(getClass()
+                    .getResourceAsStream(slotsMachine
+                            .getReelResults()[i]
+                            .getPath())));
         }
 
-        Image slot1im = new Image(getClass().getResourceAsStream(slotsMachine.getReelResults()[0].getPath()));
-        Image slot2im = new Image(getClass().getResourceAsStream(slotsMachine.getReelResults()[1].getPath()));
-        Image slot3im = new Image(getClass().getResourceAsStream(slotsMachine.getReelResults()[2].getPath()));
-
-        FirstSlot.setImage(slot1im);
-        SecondSlot.setImage(slot2im);
-        ThirdSlot.setImage(slot3im);
-
         wallet.setText("Wallet: " + Double.toString(player.getBalance()));
+        multip.setText("Multiplier: " + Double.toString(slotsMachine.getMultiplier()) + "x");
         winComment.setText(slotsMachine.getWinCom());
-        multip.setText("Multiplier" + Double.toString(slotsMachine.getMultiplier()) + "x");
-
     }
 
+    /**
+     * Scene switch to main menu
+     *
+     * @param event Button click
+     */
     public void gotoMain(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("Main.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Scene switch to slot game
+     *
+     * @param event Button click
+     */
     public void gotoSlots(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("Slots.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
+    /**
+     * Scene switch to Blackjack game. [NOT IN USE]
+     *
+     * @param event Button click
+     */
     public void gotoBlackjack(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("Blackjack.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void playSlots(ActionEvent event) throws IOException {
-        String betAmount = inputBet.getText();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Slots.fxml"));
-        root = loader.load();
-    }
-
     public void playBlackJack(ActionEvent e) {
         //todo
     }
 
+    /**
+     * Close application
+     *
+     * @param event Button click
+     */
     public void logout(ActionEvent event) {
         stage = (Stage) mainPane.getScene().getWindow();
         stage.close();

@@ -60,7 +60,12 @@ public class Main extends Application{
     }
 
 
-
+    /**
+     * Launch FX GUI. Sets application title and icon
+     *
+     * @param stage
+     * @throws Exception If error in FX launch or load
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -68,22 +73,16 @@ public class Main extends Application{
             Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch(Exception e) {
             e.printStackTrace();
         }
 
-
-        //Set app icon and title
         FileInputStream iconInput = new FileInputStream("src\\main\\resources\\icon.png");
         Image icon = new Image(iconInput);
         stage.getIcons().add(icon);
         stage.setTitle("Casino");
-
-
-
-
-
 
     }
 }

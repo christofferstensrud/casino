@@ -140,8 +140,6 @@ public class Slot implements Game {
     /**
      * Plays the machine.
      *
-     * TODO: JavaFX Compatibility.
-     *
      * @param bet the players bet.
      * @return String with the results.
      */
