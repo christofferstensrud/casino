@@ -30,12 +30,10 @@
       <ImageView fx:id="menuImage2" fitHeight="320.0" fitWidth="320.0" layoutX="50.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="/Icon.png" />
-         </image>
-      </ImageView>
+         </image></ImageView>
       <ImageView fx:id="menuImage1" fitHeight="320.0" fitWidth="320.0" layoutX="820.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="/Icon.png" />
-         </image>
-      </ImageView>
+         </image></ImageView>
    </children>
 </AnchorPane>

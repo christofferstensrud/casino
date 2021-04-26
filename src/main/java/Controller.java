@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,9 +38,9 @@ public class Controller {
     @FXML
     private Text winComment = new Text();
     @FXML
-    private ImageView menuImage1 = new ImageView();
+    private ImageView menuImage1;
     @FXML
-    private ImageView menuImage2 = new ImageView();
+    private ImageView menuImage2;
 
     @FXML
     Stage stage;
@@ -57,6 +58,8 @@ public class Controller {
             player = new Player("player", 100);
             slotsMachine.setRegisteredPlayer(player);
         }
+        //menuImage1.setImage(new Image("/Icon.png"));
+        //menuImage2.setImage(new Image("/Icon.png"));
     }
 
     /**
@@ -138,6 +141,10 @@ public class Controller {
 
     public void playBlackJack(ActionEvent e) {
         //todo
+    }
+
+    public void printPayHistory() throws IOException {
+        player.printPayoutToFile();
     }
 
     /**
