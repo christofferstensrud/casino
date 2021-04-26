@@ -1,52 +1,63 @@
 package player;
 
-import interfaces.FileHandling;
+import interfaces.FileHandlingInterface;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class FileHandlingImpl implements FileHandling {
+public class FileHandlingImpl implements FileHandlingInterface {
 
-    private final String FILE_NAME;
+    private final String FILE_PATH;
     private final Player player;
 
     public FileHandlingImpl(Player player){
         this.player = player;
-        this.FILE_NAME = player.getName() + "_player_data.txt";
+        this.FILE_PATH = player.getName() + "_player_data.txt";
     }
 
     @Override
     public Player readPlayerState() throws IOException {
         List<String> playerData = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
                 playerData.add(line);
             }
         } catch (IOException e){
-            e.printStackTrace();
-            return null;
+            //e.printStackTrace();
+            throw new FileNotFoundException("Datafile "+FILE_PATH+" for player "+player.getName()+" does not exist.");
         }
 
         String name = playerData.get(0);
-        double balance = Double.parseDouble(playerData.get(1));
+        if(name.isBlank()) {
+            throw new IllegalArgumentException("Invalid file. Player name cannot be blank.");
+        }
 
-        return new Player(name, balance);
+        if (playerData.get(1).contains("[^0-9]")) {
+            throw new IllegalArgumentException("Invalid file. Player balance must be an integer.");
+        }else {
+            int balance = Integer.parseInt(playerData.get(1));
+
+            if (player.isNegative(balance)) {
+                throw new IllegalArgumentException("Invalid file. Player balance must be positive.");
+            }else {
+                return new Player(name, balance);
+            }
+        }
     }
 
     @Override
     public boolean printPlayerState() {
         try {
-            FileWriter playerFileWriter = new FileWriter(FILE_NAME);
+            FileWriter playerFileWriter = new FileWriter(FILE_PATH);
 
-            String result = player.getName() +
+            String playerData = player.getName() +
                     "\n" +
                     player.getBalance();
 
-            playerFileWriter.write(result);
+            playerFileWriter.write(playerData);
             playerFileWriter.close();
 
 

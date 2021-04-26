@@ -1,17 +1,17 @@
 package games.slot;
 
-import interfaces.Game;
+import interfaces.GameInterface;
 import player.Player;
 import util.RandomUtils;
 import util.EqualityUtils;
 
 import static games.slot.SlotDefaults.*;
 
-public class Slot implements Game {
+public class Slot implements GameInterface {
 
     private Player registeredPlayer;
     private final SlotSymbol[] reelResults= new SlotSymbol[3];
-    private double multiplier = 0;
+    private int multiplier = 0;
 
     public Slot(){
 
@@ -90,8 +90,8 @@ public class Slot implements Game {
      * @param bet the bet the player makes
      * @return the resulting payout.
      */
-    public double calculatePayout(double multiplier, double bet) {
-        double payout = multiplier * bet;
+    public int calculatePayout(int multiplier, int bet) {
+        int payout = multiplier * bet;
 
         registeredPlayer.addToBalance(payout);
 
@@ -125,7 +125,7 @@ public class Slot implements Game {
      * @param bet the players bet.
      * @return String with the results.
      */
-    public String play(double bet) {
+    public String play(int bet) {
         if (registeredPlayer == null){
             throw new NullPointerException("No player detected!");
         }

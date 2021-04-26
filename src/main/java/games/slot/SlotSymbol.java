@@ -4,10 +4,10 @@ public class SlotSymbol {
 
     private final String name;
     private final char symbol;
-    private final double multiplierValue;
+    private final int multiplierValue;
     private final boolean basic;
 
-    public SlotSymbol(String name, char symbol, double multiplierValue, boolean isBasic){
+    public SlotSymbol(String name, char symbol, int multiplierValue, boolean isBasic){
         this.name = name;
         this.symbol = symbol;
         this.multiplierValue = multiplierValue;
@@ -34,7 +34,7 @@ public class SlotSymbol {
      *
      * @return symbol value, if needed to rank them accordingly
      */
-    public double getMultiplierValue() {
+    public int getMultiplierValue() {
         return multiplierValue;
     }
 

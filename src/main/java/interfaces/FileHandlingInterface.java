@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-public interface FileHandling {
+public interface FileHandlingInterface {
 
     /**
      * @return the state of the player.

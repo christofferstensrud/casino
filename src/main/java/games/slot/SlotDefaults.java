@@ -5,9 +5,9 @@ import java.util.List;
 
 public class SlotDefaults {
 
-    private static final SlotSymbol CHERRY = new SlotSymbol("Cherry",'C',3, true);
-    private static final SlotSymbol LEMON = new SlotSymbol("Lemon",'L',3, true);
-    private static final SlotSymbol MELON = new SlotSymbol("Melon",'M',3, true);
+    private static final SlotSymbol CHERRY = new SlotSymbol("Cherry",'C',4, true);
+    private static final SlotSymbol LEMON = new SlotSymbol("Lemon",'L',4, true);
+    private static final SlotSymbol MELON = new SlotSymbol("Melon",'M',4, true);
 
     private static final SlotSymbol BELL = new SlotSymbol("Bell",'B',10, true);
 

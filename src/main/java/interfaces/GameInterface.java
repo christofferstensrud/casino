@@ -2,7 +2,7 @@ package interfaces;
 
 import player.Player;
 
-public interface Game {
+public interface GameInterface {
 
     /**
      * @return the player registered to this Game.

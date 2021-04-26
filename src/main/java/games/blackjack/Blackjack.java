@@ -1,6 +1,6 @@
 package games.blackjack;
 
-import interfaces.Game;
+import interfaces.GameInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import player.Player;
 
 import static games.blackjack.BlackjackDefaults.*;
 
-public class Blackjack implements Game {
+public class Blackjack implements GameInterface {
 
     public ArrayList<Card> playableDeck;
 

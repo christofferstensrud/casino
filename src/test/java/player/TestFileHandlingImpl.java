@@ -3,16 +3,17 @@ package player;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestFileHandlingImpl {
 
+    Player player = new Player("fileTester");
 
     @Test
     public void test_file_create_exists() throws IOException {
-        Player player = new Player("test");
         FileHandlingImpl fileHandling = new FileHandlingImpl(player);
 
         assertTrue(fileHandling.printPlayerState());
@@ -20,14 +21,89 @@ public class TestFileHandlingImpl {
 
     @Test
     public void test_read_file_no_file() throws IOException {
-        Player player = new Player("test");
         FileHandlingImpl fileHandling = new FileHandlingImpl(player);
 
         Exception exception = assertThrows(
                 FileNotFoundException.class, fileHandling::readPlayerState);
 
-        String expectedMessage = player.getName()+"_player_data.txt";
+        String expectedMessage = "Datafile "+player.getName()+"_player_data.txt"+" for player "+player.getName()+" does not exist.";
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
     }
+
+    @Test
+    public void test_update_from_file() throws IOException {
+        FileHandlingImpl fileHandling = new FileHandlingImpl(player);
+
+        player.setBalance(100);
+        fileHandling.printPlayerState();
+
+        player.addToBalance(100);
+
+        int unsavedBalance = player.getBalance();
+        int balanceFromFile = fileHandling.readPlayerState().getBalance();
+
+        assertEquals(200, unsavedBalance);
+        assertEquals(100, balanceFromFile);
+    }
+
+    @Test
+    public void test_read_player_state_from_file() throws IOException {
+        FileHandlingImpl fileHandling = new FileHandlingImpl(player);
+
+        player.setBalance(100);
+        fileHandling.printPlayerState();
+        player.addToBalance(100);
+
+        Player playerStateFromFile = fileHandling.readPlayerState();
+        int balanceFromFile = playerStateFromFile.getBalance();
+
+        player.updatePlayer(playerStateFromFile);
+
+        assertEquals(balanceFromFile, player.getBalance());
+    }
+
+    @Test
+    public void test_read_neg_bal_from_file() throws IOException {
+        String FILE_PATH = "invalid_player_data.txt";
+        FileWriter playerFileWriter = new FileWriter(FILE_PATH);
+
+        String result = "invalid" +
+                "\n" +
+                "-100";
+        playerFileWriter.write(result);
+        playerFileWriter.close();
+
+        Player invalid = new Player("invalid");
+        FileHandlingImpl fileHandling = new FileHandlingImpl(invalid);
+
+        Exception exception = assertThrows(
+                IllegalArgumentException.class, fileHandling::readPlayerState);
+
+        String expectedMessage = "Invalid file. Player balance must be positive.";
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    /*@Test
+    public void test_read_invalid_player_state_from_file() throws IOException {
+        String FILE_PATH = "invalid_player_data.txt";
+        FileWriter playerFileWriter = new FileWriter(FILE_PATH);
+
+        String result = "adfsgqwersdfg" +
+                "\n" +
+                "asdfasdfqwegsdfg";
+
+        playerFileWriter.write(result);
+        playerFileWriter.close();
+
+        Player invalid = new Player("invalid");
+        FileHandlingImpl fileHandling = new FileHandlingImpl(invalid);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, fileHandling::readPlayerState);
+
+        String expectedMessage = "Invalid file. Player balance must be an integer.";
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }*/
 }

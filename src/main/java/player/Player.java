@@ -11,15 +11,12 @@ import java.util.List;
 public class Player {
 
     private String name;
-    private double balance;
+    private int balance;
 
     // Blackjack
     private final List<Card> hand = new ArrayList<>();
     private int hardSum = 0;
     private int softSum = 0;
-
-    private final List<String> payoutHistory = new ArrayList<>();
-
 
 
     public Player(String name) {
@@ -31,7 +28,7 @@ public class Player {
         }
     }
 
-    public Player(String name, double balance) {
+    public Player(String name, int balance) {
          if(name.isBlank()) {
             throw new IllegalArgumentException("Player name cannot be blank.");
         } else if (isNegative(balance)) {
@@ -68,17 +65,17 @@ public class Player {
     }
 
     /**
-     * Returns player balance as a Double
+     * Returns player balance as a int
      * @return balance
      */
-    public double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
     /**
      * Sets the players balance
      */
-    public void setBalance(double balance) {
+    public void setBalance(int balance) {
         if(isNegative(balance)) {
             throw new IllegalArgumentException("Balance must be positive.");
         } else{
@@ -91,7 +88,7 @@ public class Player {
      *
      * @param value to add to the balance
      */
-    public void addToBalance(double value) {
+    public void addToBalance(int value) {
         if (isNegative(value)) {
             throw new IllegalArgumentException("Value to be added must be positive.");
         } else {
@@ -104,7 +101,7 @@ public class Player {
      *
      * @param value to remove from the value
      */
-    public void removeFromBalance(double value) {
+    public void removeFromBalance(int value) {
         if (isGreaterThan(value, balance)) {
             throw new IllegalArgumentException("Value to be removed cannot be greater than the players balance.");
         } else {
@@ -114,11 +111,11 @@ public class Player {
 
     // Validation methods
 
-    private boolean isNegative(double value) {
+    boolean isNegative(int value) {
         return value < 0;
     }
 
-    private boolean isGreaterThan(double val1, double val2) {
+    private boolean isGreaterThan(int val1, int val2) {
         return val1 > val2;
     }
 
@@ -172,7 +169,7 @@ public class Player {
 /**
  // * @param payout to add to the payout history
  */
-    /*public void addToPayoutHistory(String game, String resultsAsString, double bet, double payout) {
+    /*public void addToPayoutHistory(String game, String resultsAsString, int bet, int payout) {
 
         if (game.isBlank()){
             throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'game' cannot be blank.");
