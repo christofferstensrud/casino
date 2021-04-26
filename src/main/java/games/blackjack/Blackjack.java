@@ -1,6 +1,6 @@
 package games.blackjack;
 
-import games.interfaces.Game;
+import interfaces.Game;
 
 import java.util.ArrayList;
 import java.util.List;

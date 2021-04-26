@@ -1,24 +1,18 @@
 package games.slot;
 
-import org.junit.Before;
 import player.Player;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSlot {
 
-    public Player player;
-    public Slot slot;
-
-    @Before
-    public void setUp(){
-        player = new Player("testPerson");
-        slot = new Slot();
-    }
+    public Player player= new Player("testPerson");;
+    public Slot slot= new Slot();;
 
     @Test
-    public void testRegisterPlayer() {
+    public void testSetRegisterPlayer() {
         slot.setRegisteredPlayer(player);
         assertEquals(player, slot.getRegisteredPlayer());
     }
+
 }

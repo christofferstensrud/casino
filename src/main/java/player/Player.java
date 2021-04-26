@@ -2,6 +2,7 @@ package player;
 
 import games.blackjack.Card;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Player {
     private String name;
     private double balance;
 
+    // Blackjack
     private final List<Card> hand = new ArrayList<>();
     private int hardSum = 0;
     private int softSum = 0;
@@ -19,16 +21,32 @@ public class Player {
     private final List<String> payoutHistory = new ArrayList<>();
 
 
-    public Player(String name){
-        this.name = name;
-        this.balance = 0;
+
+    public Player(String name) {
+        if(name.isBlank()) {
+            throw new IllegalArgumentException("Players name must not be blank.");
+        } else {
+            this.name = name;
+            this.balance = 0;
+        }
     }
 
-    public Player(String name, double balance){
-        this.name = name;
-        this.balance = balance;
+    public Player(String name, double balance) {
+         if(name.isBlank()) {
+            throw new IllegalArgumentException("Players name must not be blank.");
+        } else if (isNegative(balance)) {
+            throw new IllegalArgumentException("Players balance must be positive.");
+        }
+        else {
+            this.name = name;
+            this.balance = balance;
+        }
     }
 
+    public void updatePlayer(Player player) {
+        setName(player.name);
+        setBalance(player.balance);
+    }
 
     /**
      * Returns player name as a String
@@ -39,10 +57,14 @@ public class Player {
     }
 
     /**
-     * @param name to change player name to
+     * Sets the players name
      */
     public void setName(String name) {
-        this.name = name;
+        if(name.isBlank()) {
+            throw new IllegalArgumentException("Players name must not be blank.");
+        } else{
+            this.name = name;
+        }
     }
 
     /**
@@ -54,65 +76,54 @@ public class Player {
     }
 
     /**
-     * @param value to set the balance to
+     * Sets the players balance
      */
-    public void setBalance(double value) {
-        this.balance = value;
+    public void setBalance(double balance) {
+        if(isNegative(balance)) {
+            throw new IllegalArgumentException("Balance must be positive.");
+        } else{
+            this.balance = balance;
+        }
     }
 
     /**
+     * Value must be positive.
+     *
      * @param value to add to the balance
      */
     public void addToBalance(double value) {
-        this.balance += value;
+        if (isNegative(value)) {
+            throw new IllegalArgumentException("Value to be added must be positive.");
+        } else {
+            this.balance += value;
+        }
     }
 
     /**
+     * Value cannot be greater than players balance.
+     *
      * @param value to remove from the value
      */
     public void removeFromBalance(double value) {
-        this.balance -= value;
-    }
-
-    /**
-     * Returns the players payout history as a list of Strings
-     * @return payoutHistory
-     */
-    public List<String> getPayoutHistory() {
-        return payoutHistory;
-    }
-
-    /**
-     * @param payout to add to the payout history
-     */
-    public void addToPayoutHistory(String game, String resultsAsString, double bet, double payout) {
-        this.payoutHistory.add(game +
-                " | " +
-                resultsAsString +
-                " | " +
-                bet +
-                " | " +
-                payout);
-    }
-
-    public void printPayoutToFile() throws IOException {
-        try {
-            FileWriter payoutHistoryFile = new FileWriter(getName() +" payout history.txt");
-
-            StringBuilder result = new StringBuilder();
-            for (String line : payoutHistory) {
-                result.append(line);
-                result.append("\n");
-            }
-            String header = "Game | Results | Bet | Payout \n";
-            payoutHistoryFile.write(header);
-            payoutHistoryFile.append(result.toString());
-            payoutHistoryFile.close();
-
-        }catch (IOException e){
-            e.printStackTrace();
+        if (isGreaterThan(value, balance)) {
+            throw new IllegalArgumentException("Value to be removed cannot be greater than the players balance.");
+        } else {
+            this.balance -= value;
         }
     }
+
+    // Validation methods
+
+    private boolean isNegative(double value) {
+        return value < 0;
+    }
+
+    private boolean isGreaterThan(double val1, double val2) {
+        return val1 > val2;
+    }
+
+
+    // Blackjack
 
     /**
      * Returns player hand
@@ -147,3 +158,61 @@ public class Player {
     }
 
 }
+
+// File handling
+
+/**
+ * Returns the players payout history as a list of Strings
+ * @return payoutHistory
+ */
+    /*public List<String> getPayoutHistory() {
+        return payoutHistory;
+    }*/
+
+/**
+ // * @param payout to add to the payout history
+ */
+    /*public void addToPayoutHistory(String game, String resultsAsString, double bet, double payout) {
+
+        if (game.isBlank()){
+            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'game' cannot be blank.");
+        } else if (resultsAsString.isBlank()){
+            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'resultsAsString' cannot be blank.");
+        } else if (isNegative(bet)) {
+            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'bet' cannot be negative.");
+        } else if (isNegative(payout)) {
+            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'payout' cannot be negative.");
+        } else {
+        this.payoutHistory.add(game +
+                " | " +
+                resultsAsString +
+                " | " +
+                bet +
+                " | " +
+                payout);
+        }
+    }*/
+
+    /*public String printPayoutHistoryToFile() throws IOException {
+        try {
+            FileWriter payoutHistoryFileWriter = new FileWriter(FILE_NAME);
+            File payoutHistoryFile = new File(FILE_NAME);
+
+            StringBuilder result = new StringBuilder();
+            for (String line : payoutHistory) {
+                result.append(line);
+                result.append("\n");
+            }
+            String header = "Game | Results | Bet | Payout \n";
+            payoutHistoryFileWriter.write(header);
+            payoutHistoryFileWriter.append(result.toString());
+            payoutHistoryFileWriter.close();
+
+            return payoutHistoryFile.getPath();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return "";
+    }*/

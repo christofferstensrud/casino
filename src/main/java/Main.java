@@ -42,7 +42,7 @@ public class Main {
         System.out.println(slot.play(5));
         System.out.println(slot.play(5));
         System.out.println(pTest.getPayoutHistory());
-        pTest.printPayoutToFile();
+        pTest.printPayoutHistoryToFile();
 
         /*Blackjack bj = new Blackjack();
         bj.setRegisteredPlayer(pTest);
