@@ -1,16 +1,16 @@
-package games;
+package casino.games.slot;
 
-public class Symbol {
+public class SlotSymbol {
 
     private final String name;
-    private final char symbol;
-    private final double value;
+    private final String path;
+    private final int multiplierValue;
     private final boolean basic;
 
-    public Symbol(String name, char symbol, double value, boolean isBasic){
+    public SlotSymbol(String name, String path, int multiplierValue, boolean isBasic){
         this.name = name;
-        this.symbol = symbol;
-        this.value = value;
+        this.path = path;
+        this.multiplierValue = multiplierValue;
         this.basic = isBasic;
     }
 
@@ -24,18 +24,18 @@ public class Symbol {
 
     /**
      *
-     * @return "symbol" of the symbol
+     * @return Path of the slotsymbol
      */
-    public char getSymbol() {
-        return symbol;
+    public String getPath() {
+        return path;
     }
 
     /**
      *
-     * @return symbol value, if needed to rank them accordingly
+     * @return Multiplier value
      */
-    public double getValue() {
-        return value;
+    public int getMultiplierValue() {
+        return multiplierValue;
     }
 
     /**

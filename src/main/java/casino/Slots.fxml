@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="casino.Controller">
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="800.0" prefWidth="1200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: Green;">
+                  <ImageView id="1" fx:id="FirstSlot" fitHeight="280.0" fitWidth="280.0" layoutX="91.0" layoutY="58.0" pickOnBounds="true">
+                        <Image url="@../../resources/images/BAR.PNG" />
+                  </ImageView>
+                  <ImageView id="2" fx:id="SecondSlot" fitHeight="280.0" fitWidth="280.0" layoutX="462.0" layoutY="58.0" pickOnBounds="true">
+                        <Image url="@../../resources/images/BAR.PNG" />
+                  </ImageView>
+                  <ImageView id="3" fx:id="ThirdSlot" fitHeight="280.0" fitWidth="280.0" layoutX="833.0" layoutY="58.0" pickOnBounds="true">
+                      <Image url="@../../resources/images/BAR.PNG" />
+                  </ImageView>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="655.0" style="-fx-background-color: LimeGreen;">
+                  <Button layoutX="30.0" layoutY="321.0" mnemonicParsing="false" onAction="#gotoMain" prefHeight="40.0" prefWidth="150.0" text="Exit to menu" />
+                  <Button layoutX="519.0" layoutY="76.0" mnemonicParsing="false" onAction="#spin" prefHeight="56.0" prefWidth="200.0" text="SPIN">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="betTextField" layoutX="544.0" layoutY="198.0" onAction="#spin" prefHeight="65.0" prefWidth="149.0" promptText="Bet $">
+                     <font>
+                        <Font size="36.0" />
+                     </font></TextField>
+                  <Text fx:id="balanceTextField" layoutX="544.0" layoutY="300.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Text>
+                  <Text fx:id="resultText" layoutX="369.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="HIT SPIN!" textAlignment="CENTER" wrappingWidth="500.0">
+                     <font>
+                        <Font name="Arial Bold" size="36.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="1020.0" layoutY="321.0" mnemonicParsing="false" onAction="#writePlayerState" prefHeight="40.0" prefWidth="150.0" text="Write player state" textAlignment="CENTER" />
+                    <Button layoutX="1020.0" layoutY="269.0" mnemonicParsing="false" onAction="#readPlayerState" prefHeight="40.0" prefWidth="150.0" text="Read player state" textAlignment="CENTER" />
+            </AnchorPane>
+      </SplitPane>
+</AnchorPane>

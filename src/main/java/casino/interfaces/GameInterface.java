@@ -1,8 +1,8 @@
-package games;
+package casino.interfaces;
 
-import player.Player;
+import casino.player.Player;
 
-public interface Game {
+public interface GameInterface {
 
     /**
      * @return the player registered to this Game.

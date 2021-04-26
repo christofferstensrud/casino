@@ -1,4 +1,4 @@
-package util;
+package casino.util;
 
 import java.util.Random;
 
@@ -42,6 +42,7 @@ public class RandomUtils {
      * @param <T>   the object type of the array.
      * @return a random permutation of the input array
      */
+    //Card[] deckArr = deck.toArray(Card[]::new); //convert List<Card> to Card[]
     public static <T> T[] randomPermutation(T[] array, int n)
     {
         Random r = new Random();
@@ -57,4 +58,5 @@ public class RandomUtils {
         }
         return array;
     }
+
 }

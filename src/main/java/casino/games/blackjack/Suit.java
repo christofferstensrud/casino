@@ -1,4 +1,4 @@
-package games;
+package casino.games.blackjack;
 
 public class Suit {
 
