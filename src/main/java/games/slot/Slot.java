@@ -1,16 +1,9 @@
 package games.slot;
 
-import games.blackjack.Action;
-import games.interfaces.Game;
+import interfaces.Game;
 import player.Player;
 import util.RandomUtils;
 import util.EqualityUtils;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static games.slot.SlotDefaults.*;
 
@@ -92,7 +85,7 @@ public class Slot implements Game {
      * Updates reelResults with three random symbols.
      *
      */
-    public void spinReel() {
+    private void spinReel() {
         System.out.println("Spinning...");
         for (int i = 0; i < 3; i++) {
             int result = RandomUtils.randomBetween(0, SLOTS_SYMBOLS.size() - 1);
