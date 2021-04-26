@@ -51,7 +51,8 @@
                      </font>
                   </Text>
                   <Text fx:id="multip" layoutX="565.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Multiplier: 0.0x" textAlignment="CENTER" wrappingWidth="107.0" />
-                  <Button layoutX="1020.0" layoutY="321.0" mnemonicParsing="false" onAction="#printPayHistory" prefHeight="40.0" prefWidth="150.0" text="Print payout history" textAlignment="CENTER" />
+                  <Button layoutX="1020.0" layoutY="321.0" mnemonicParsing="false" onAction="#printPlayerState" prefHeight="40.0" prefWidth="150.0" text="Print player info" textAlignment="CENTER" />
+                  <Button layoutX="1020.0" layoutY="269.0" mnemonicParsing="false" onAction="#readPlayerState" prefHeight="40.0" prefWidth="150.0" text="Read player info" textAlignment="CENTER" />
                </children>
             </AnchorPane>
         </items>

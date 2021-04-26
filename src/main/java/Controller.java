@@ -143,8 +143,18 @@ public class Controller {
         //todo
     }
 
-    public void printPayHistory() throws IOException {
-        player.printPayoutToFile();
+    /**
+     * Print player state to file. (Name, wallet balance)
+     * Read and import player state from file.
+     *
+     * @throws IOException
+     */
+    public void printPlayerState() throws IOException {
+        player.printPlayerState();
+    }
+
+    public void readPlayerState() throws IOException {
+        player.readPlayerState();
     }
 
     /**
