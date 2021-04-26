@@ -11,11 +11,26 @@ public class TestSlot {
     public Slot slot= new Slot();
 
     @Test
-    public void testSetRegisterPlayer() {
+    public void test_set_register_player() {
         slot.setRegisteredPlayer(player);
         assertEquals(player, slot.getRegisteredPlayer());
     }
 
+    @Test
+    public void test_play_without_registered_player() {
+        player.addToBalance(5);
+
+        Exception exception = assertThrows(
+                NullPointerException.class, () -> {
+                    slot.play(5);
+                });
+
+        String expectedMessage = "No player detected!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals(5, player.getBalance());
+    }
 
 
 }

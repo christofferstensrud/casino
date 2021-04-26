@@ -36,13 +36,13 @@ public class Controller {
     @FXML
     private AnchorPane mainPane;
     @FXML
-    private TextField inputBet;
+    private TextField betTextField;
     @FXML
-    private TextField wallet = new TextField();
+    private TextField balanceTextField = new TextField();
     @FXML
-    private Text multip = new Text();
+    private Text multiplierText = new Text();
     @FXML
-    private Text winComment = new Text();
+    private Text resultText = new Text();
 
 
     @FXML
@@ -63,7 +63,7 @@ public class Controller {
             player = new Player("player", 100);
             slotsMachine.setRegisteredPlayer(player);
             fileHandling = new FileHandlingImpl(player);
-            writePlayerState();
+            readPlayerState();
         }
 
 
@@ -75,7 +75,7 @@ public class Controller {
      */
     @FXML
     public void spin() {
-        if(slotsMachine.play(Integer.parseInt(inputBet.getText()))){
+        if(slotsMachine.play(Integer.parseInt(betTextField.getText()))){
             ArrayList<ImageView> imageViewsList = new ArrayList<>(Arrays.asList(FirstSlot, SecondSlot, ThirdSlot));
             for (int i = 0; i < imageViewsList.size(); i++) {
                 imageViewsList.get(i).setImage(new Image(getClass()
@@ -84,11 +84,11 @@ public class Controller {
                                 .getPath())));
             }
 
-            wallet.setText("Balance: $" + player.getBalance());
-            multip.setText("Multiplier: " + slotsMachine.getMultiplier() + "x");
-            winComment.setText(slotsMachine.getWinCom());
+            balanceTextField.setText("Balance: $" + player.getBalance());
+            multiplierText.setText("Multiplier: " + slotsMachine.getMultiplier() + "x");
+            resultText.setText(slotsMachine.getResultCommentText());
         } else {
-            winComment.setText("Balance too low!");
+            resultText.setText("Balance too low!");
         }
     }
 
@@ -137,13 +137,13 @@ public class Controller {
      */
     public void writePlayerState() {
         fileHandling.printPlayerState();
-        winComment.setText("Printed player info to file.");
+        resultText.setText("Printed player info to file.");
     }
 
     public void readPlayerState() throws IOException {
         player.updatePlayer(fileHandling.readPlayerState());
-        wallet.setText("Wallet: " + player.getBalance());
-        winComment.setText("loaded player state from file.");
+        balanceTextField.setText("Wallet: " + player.getBalance());
+        resultText.setText("loaded player state from file.");
     }
 
     /**

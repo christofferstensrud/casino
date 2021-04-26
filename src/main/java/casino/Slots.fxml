@@ -29,20 +29,20 @@
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="inputBet" layoutX="544.0" layoutY="198.0" onAction="#spin" prefHeight="65.0" prefWidth="149.0" promptText="Bet $">
+                  <TextField fx:id="betTextField" layoutX="544.0" layoutY="198.0" onAction="#spin" prefHeight="65.0" prefWidth="149.0" promptText="Bet $">
                      <font>
                         <Font size="36.0" />
                      </font></TextField>
-                  <TextField fx:id="wallet" layoutX="544.0" layoutY="289.0" prefHeight="65.0" prefWidth="149.0" text="Wallet: 100">
+                  <TextField fx:id="balanceTextField" layoutX="544.0" layoutY="289.0" prefHeight="65.0" prefWidth="149.0" text="Wallet: 100">
                      <font>
                         <Font size="20.0" />
                      </font></TextField>
-                  <Text fx:id="winComment" layoutX="369.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="HIT SPIN!" textAlignment="CENTER" wrappingWidth="500.0">
+                  <Text fx:id="resultText" layoutX="369.0" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="HIT SPIN!" textAlignment="CENTER" wrappingWidth="500.0">
                      <font>
                         <Font name="Arial Bold" size="36.0" />
                      </font>
                   </Text>
-                  <Text fx:id="multip" layoutX="565.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Multiplier: 0.0x" textAlignment="CENTER" wrappingWidth="107.0" />
+                  <Text fx:id="multiplierText" layoutX="565.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Multiplier: 0.0x" textAlignment="CENTER" wrappingWidth="107.0" />
                   <Button layoutX="1020.0" layoutY="321.0" mnemonicParsing="false" onAction="#writePlayerState" prefHeight="40.0" prefWidth="150.0" text="Print player info" textAlignment="CENTER" />
                     <Button layoutX="1020.0" layoutY="269.0" mnemonicParsing="false" onAction="#readPlayerState" prefHeight="40.0" prefWidth="150.0" text="Read player info" textAlignment="CENTER" />
             </AnchorPane>

@@ -12,7 +12,7 @@ public class Slot implements GameInterface {
     private Player registeredPlayer;
     private final SlotSymbol[] reelResults;
     private int multiplier;
-    private String winCom;
+    private String resultCommentText;
 
     public Slot(){
         this.reelResults = new SlotSymbol[3];
@@ -33,8 +33,8 @@ public class Slot implements GameInterface {
         return this.reelResults;
     }
 
-    public String getWinCom() {
-        return this.winCom;
+    public String getResultCommentText() {
+        return this.resultCommentText;
     }
 
     public double getMultiplier() {
@@ -63,19 +63,16 @@ public class Slot implements GameInterface {
 
         if(EqualityUtils.checkThreeEqual(slotSymbol1, slotSymbol2, slotSymbol3)) { // checks if all three are equal to each other
             multiplier = slotSymbol1.getMultiplierValue();
-            winCom = "SAME SYMBOLS!";
             return true;
         }
 
         if(slotSymbol1.getBasic() && slotSymbol2.getBasic() && slotSymbol3.getBasic()) { // all three are different fruits
             multiplier = slotSymbol1.getMultiplierValue()/2;
-            winCom = "DIFFERENT FRUITS!";
             return true;
         }
 
         // if they are not equal or only different fruits, no pay out.
         multiplier = 0;
-        winCom = "No win!";
         return false;
     }
 
@@ -91,7 +88,6 @@ public class Slot implements GameInterface {
             int result = RandomUtils.randomBetween(0, SLOTS_SYMBOLS.size() - 1);
             reelResults[i] = SLOTS_SYMBOLS.get(result);
         }
-
     }
 
     /**
@@ -127,9 +123,13 @@ public class Slot implements GameInterface {
 
         spinReel();
         if(checkWin(reelResults)){
-            registeredPlayer.addToBalance(calculatePayout(multiplier, bet));
-        }
+            int payout = calculatePayout(multiplier, bet);
 
+            resultCommentText = "You win! $" +payout;
+            registeredPlayer.addToBalance(payout);
+        }else {
+            resultCommentText = "No win!";
+        }
         return true;
     }
 }
