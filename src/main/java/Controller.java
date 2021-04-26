@@ -21,6 +21,9 @@ import java.util.Arrays;
 
 public class Controller {
 
+
+
+
     @FXML
     ImageView FirstSlot;
     @FXML
@@ -38,10 +41,7 @@ public class Controller {
     private Text multip = new Text();
     @FXML
     private Text winComment = new Text();
-    @FXML
-    private ImageView menuImage1;
-    @FXML
-    private ImageView menuImage2;
+
 
     @FXML
     Stage stage;
@@ -82,7 +82,7 @@ public class Controller {
                                 .getPath())));
             }
 
-            wallet.setText("Wallet: " + player.getBalance());
+            wallet.setText("Balance: $" + player.getBalance());
             multip.setText("Multiplier: " + slotsMachine.getMultiplier() + "x");
             winComment.setText(slotsMachine.getWinCom());
         } else {
@@ -97,7 +97,7 @@ public class Controller {
      */
     public void gotoMain(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            root = FXMLLoader.load(getClass().getResource("App.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -129,28 +129,6 @@ public class Controller {
     }
 
     /**
-     * Scene switch to Blackjack game. [NOT IN USE]
-     *
-     * @param event Button click
-     */
-    public void gotoBlackjack(ActionEvent event) {
-        try {
-            root = FXMLLoader.load(getClass().getResource("Blackjack.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /*public void playBlackJack(ActionEvent e) {
-        //todo
-    }*/
-
-    /**
      * Print player state to file. (Name, wallet balance)
      * Read and import player state from file.
      * Updates on screen comment and wallet amount.
@@ -169,9 +147,8 @@ public class Controller {
     /**
      * Close application
      *
-     * @param event Button click
      */
-    public void logout(ActionEvent event) {
+    public void logout() {
         stage = (Stage) mainPane.getScene().getWindow();
         stage.close();
     }

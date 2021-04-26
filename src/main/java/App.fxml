@@ -10,7 +10,6 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: Green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
-   <children>
       <BorderPane layoutX="400.0" layoutY="100.0" prefHeight="112.0" prefWidth="400.0" style="-fx-background-color: LightGreen;">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
@@ -24,16 +23,13 @@
          </center>
       </BorderPane>
       <Button defaultButton="true" layoutX="500.0" layoutY="300.0" mnemonicParsing="false" onAction="#gotoSlots" prefHeight="60.0" prefWidth="200.0" text="Play Slots" />
-      <Button disable="true" layoutX="500.0" layoutY="400.0" mnemonicParsing="false" onAction="#playBlackJack" prefHeight="60.0" prefWidth="200.0" text="Play Blackjack" />
-      <Button fx:id="LogoutButton" layoutX="500.0" layoutY="600.0" mnemonicParsing="false" onAction="#logout" prefHeight="60.0" prefWidth="200.0" text="Exit Casino" />
+      <Button disable="true" layoutX="500.0" layoutY="400.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Play Blackjack" />
+      <Button layoutX="500.0" layoutY="600.0" mnemonicParsing="false" onAction="#logout" prefHeight="60.0" prefWidth="200.0" text="Exit Casino" />
       <AnchorPane layoutX="450.0" layoutY="21.0" />
-      <ImageView fx:id="menuImage2" fitHeight="320.0" fitWidth="320.0" layoutX="50.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="/Icon.png" />
-         </image></ImageView>
-      <ImageView fx:id="menuImage1" fitHeight="320.0" fitWidth="320.0" layoutX="820.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="/Icon.png" />
-         </image></ImageView>
-   </children>
+      <ImageView fitHeight="320.0" fitWidth="320.0" layoutX="50.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="/Icon.png" />
+      </ImageView>
+      <ImageView fitHeight="320.0" fitWidth="320.0" layoutX="820.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="/Icon.png" />
+      </ImageView>
 </AnchorPane>

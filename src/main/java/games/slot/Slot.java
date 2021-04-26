@@ -10,12 +10,13 @@ import static games.slot.SlotDefaults.*;
 public class Slot implements Game {
 
     private Player registeredPlayer;
-    private final SlotSymbol[] reelResults= new SlotSymbol[3];
-    private double multiplier = 0;
+    private final SlotSymbol[] reelResults;
+    private double multiplier;
     private String winCom;
 
     public Slot(){
-
+        this.reelResults = new SlotSymbol[3];
+        this.multiplier = 0;
     }
 
     @Override
@@ -101,29 +102,8 @@ public class Slot implements Game {
      * @param bet the bet the player makes
      * @return the resulting payout.
      */
-    public double calculatePayout(double multiplier, double bet) {
-        double payout = multiplier * bet;
-
-        registeredPlayer.addToBalance(payout);
-
-        return payout;
-    }
-
-    /**
-     * Helper function to convert a list of SlotSymbols to readable, printable String.
-     *
-     * @param slotSymbols array of SlotSymbols.
-     * @return SlotSymbols as String.
-     */
-    public String symbolsToString(SlotSymbol[] slotSymbols){
-        StringBuilder result = new StringBuilder();
-
-        for (SlotSymbol slotSymbol : slotSymbols) {
-            result.append(slotSymbol.getName());
-            result.append(" ");
-        }
-
-        return result.toString();
+    private double calculatePayout(double multiplier, double bet) {
+        return multiplier * bet;
     }
 
     /**
@@ -146,9 +126,10 @@ public class Slot implements Game {
         registeredPlayer.removeFromBalance(bet);
 
         spinReel();
-        checkWin(reelResults);
+        if(checkWin(reelResults)){
+            registeredPlayer.addToBalance(calculatePayout(multiplier, bet));
+        }
 
         return true;
     }
-
 }

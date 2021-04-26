@@ -24,7 +24,7 @@ public class SlotSymbol {
 
     /**
      *
-     * @return Path of the slotssymbol
+     * @return Path of the slotsymbol
      */
     public String getPath() {
         return path;

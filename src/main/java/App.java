@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 
 
-public class Main extends Application{
+public class App extends Application{
     public static void main(String[] args) {
         launch(args);
     }
@@ -25,7 +25,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("App.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setResizable(false);
