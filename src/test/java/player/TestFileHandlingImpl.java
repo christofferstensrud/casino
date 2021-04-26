@@ -18,7 +18,7 @@ public class TestFileHandlingImpl {
     public void test_file_create_exists() throws IOException {
         FileHandlingImpl fileHandling = new FileHandlingImpl(player);
 
-        assertTrue(fileHandling.printPlayerState());
+        assertTrue(fileHandling.writePlayerState());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestFileHandlingImpl {
         FileHandlingImpl fileHandling = new FileHandlingImpl(player);
 
         player.setBalance(100);
-        fileHandling.printPlayerState();
+        fileHandling.writePlayerState();
 
         player.addToBalance(100);
 
@@ -52,7 +52,7 @@ public class TestFileHandlingImpl {
         FileHandlingImpl fileHandling = new FileHandlingImpl(player);
 
         player.setBalance(100);
-        fileHandling.printPlayerState();
+        fileHandling.writePlayerState();
         player.addToBalance(100);
 
         Player playerStateFromFile = fileHandling.readPlayerState();

@@ -38,9 +38,7 @@ public class Controller {
     @FXML
     private TextField betTextField;
     @FXML
-    private TextField balanceTextField = new TextField();
-    @FXML
-    private Text multiplierText = new Text();
+    private Text balanceTextField = new Text();
     @FXML
     private Text resultText = new Text();
 
@@ -52,7 +50,7 @@ public class Controller {
     @FXML
     Parent root;
 
-    private Slot slotsMachine = new Slot();
+    private final Slot slotsMachine = new Slot();
     private Player player;
     private FileHandlingImpl fileHandling;
 
@@ -75,20 +73,24 @@ public class Controller {
      */
     @FXML
     public void spin() {
-        if(slotsMachine.play(Integer.parseInt(betTextField.getText()))){
-            ArrayList<ImageView> imageViewsList = new ArrayList<>(Arrays.asList(FirstSlot, SecondSlot, ThirdSlot));
-            for (int i = 0; i < imageViewsList.size(); i++) {
-                imageViewsList.get(i).setImage(new Image(getClass()
-                        .getResourceAsStream(slotsMachine
-                                .getReelResults()[i]
-                                .getPath())));
-            }
+        if (!betTextField.getText().matches("[0-9]+")) {
+            resultText.setText("Bet must be a number.");
+        }else{
+            if(slotsMachine.play(Integer.parseInt(betTextField.getText()))){
+                ArrayList<ImageView> imageViewsList = new ArrayList<>(Arrays.asList(FirstSlot, SecondSlot, ThirdSlot));
+                for (int i = 0; i < imageViewsList.size(); i++) {
+                    imageViewsList.get(i).setImage(new Image(getClass()
+                            .getResourceAsStream(slotsMachine
+                                    .getReelResults()[i]
+                                    .getPath())));
+                }
 
-            balanceTextField.setText("Balance: $" + player.getBalance());
-            multiplierText.setText("Multiplier: " + slotsMachine.getMultiplier() + "x");
-            resultText.setText(slotsMachine.getResultCommentText());
-        } else {
-            resultText.setText("Balance too low!");
+                balanceTextField.setText("Balance: $" + player.getBalance());
+                resultText.setText(slotsMachine.getResultCommentText());
+                writePlayerState();
+            } else {
+                resultText.setText("Balance too low!");
+            }
         }
     }
 
@@ -136,14 +138,14 @@ public class Controller {
      * Updates on screen comment and wallet amount.
      */
     public void writePlayerState() {
-        fileHandling.printPlayerState();
-        resultText.setText("Printed player info to file.");
+        fileHandling.writePlayerState();
+        //resultText.setText("Wrote player state to file.");
     }
 
     public void readPlayerState() throws IOException {
         player.updatePlayer(fileHandling.readPlayerState());
-        balanceTextField.setText("Wallet: " + player.getBalance());
-        resultText.setText("loaded player state from file.");
+        balanceTextField.setText("Balance: $" + player.getBalance());
+        resultText.setText("Read player state from file.");
     }
 
     /**

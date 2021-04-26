@@ -26,8 +26,9 @@ public class FileHandlingImpl implements FileHandlingInterface {
                 playerData.add(line);
             }
         } catch (IOException e){
-            printPlayerState();
-            throw new FileNotFoundException("Datafile "+FILE_PATH+" for player "+player.getName()+" does not exist.");
+            writePlayerState();
+            //throw new FileNotFoundException("Datafile "+FILE_PATH+" for player "+player.getName()+" does not exist.");
+            return new Player("player", 100);
         }
 
         String name = playerData.get(0);
@@ -35,7 +36,7 @@ public class FileHandlingImpl implements FileHandlingInterface {
             throw new IllegalArgumentException("Invalid file. Player name cannot be blank.");
         }
 
-        if (playerData.get(1).contains("[^0-9]")) {
+        if (!playerData.get(1).matches("[0-9]+")) {
             throw new IllegalArgumentException("Invalid file. Player balance must be an integer.");
         }else {
             int balance = Integer.parseInt(playerData.get(1));
@@ -49,7 +50,7 @@ public class FileHandlingImpl implements FileHandlingInterface {
     }
 
     @Override
-    public boolean printPlayerState() {
+    public boolean writePlayerState() {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
 

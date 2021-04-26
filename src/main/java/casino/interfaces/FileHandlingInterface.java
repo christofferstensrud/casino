@@ -12,11 +12,11 @@ public interface FileHandlingInterface {
     Player readPlayerState() throws IOException;
 
     /**
-     * Prints the state of a player to a file.
+     * Writes the state of a player to a file.
      *
      * @return true if the player data was printed.
      */
-    boolean printPlayerState();
+    boolean writePlayerState();
 
 
 }
