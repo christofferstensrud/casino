@@ -94,7 +94,6 @@ public class Slot implements Game {
         double payout = multiplier * bet;
 
         registeredPlayer.addToBalance(payout);
-        registeredPlayer.addToPayoutHistory("Slots", symbolsToString(reelResults), bet, payout);
 
         System.out.println("Updated player balance. New balance: " + registeredPlayer.getBalance());
 

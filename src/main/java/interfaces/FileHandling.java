@@ -11,14 +11,14 @@ public interface FileHandling {
     /**
      * @return the state of the player.
      */
-    Player readPlayerState(String filePath) throws IOException;
+    Player readPlayerState() throws IOException;
 
     /**
-     * Prints the state of a player.
+     * Prints the state of a player to a file.
      *
-     * @param player the player to print to file.
+     * @return true if the player data was printed.
      */
-    boolean printPlayerState(Player player);
+    boolean printPlayerState();
 
 
 }

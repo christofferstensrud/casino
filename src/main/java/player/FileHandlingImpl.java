@@ -10,14 +10,15 @@ import java.util.List;
 public class FileHandlingImpl implements FileHandling {
 
     private final String FILE_NAME;
+    private final Player player;
 
     public FileHandlingImpl(Player player){
-        FILE_NAME = player.getName() + "_player_data.txt";
+        this.player = player;
+        this.FILE_NAME = player.getName() + "_player_data.txt";
     }
 
     @Override
-    public Player readPlayerState(String filePath) throws IOException {
-        //FileReader playerFileReader = new FileReader(FILE_NAME);
+    public Player readPlayerState() throws IOException {
         List<String> playerData = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
@@ -25,6 +26,9 @@ public class FileHandlingImpl implements FileHandling {
             while ((line = br.readLine()) != null) {
                 playerData.add(line);
             }
+        } catch (IOException e){
+            e.printStackTrace();
+            return null;
         }
 
         String name = playerData.get(0);
@@ -34,10 +38,9 @@ public class FileHandlingImpl implements FileHandling {
     }
 
     @Override
-    public boolean printPlayerState(Player player) {
+    public boolean printPlayerState() {
         try {
             FileWriter playerFileWriter = new FileWriter(FILE_NAME);
-            //File playerFile = new File(FILE_NAME);
 
             String result = player.getName() +
                     "\n" +
@@ -47,7 +50,6 @@ public class FileHandlingImpl implements FileHandling {
             playerFileWriter.close();
 
 
-            //playerFile.getPath();
             return true;
 
         }catch (IOException e){

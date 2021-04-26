@@ -24,7 +24,7 @@ public class Player {
 
     public Player(String name) {
         if(name.isBlank()) {
-            throw new IllegalArgumentException("Players name must not be blank.");
+            throw new IllegalArgumentException("Player name cannot be blank.");
         } else {
             this.name = name;
             this.balance = 0;
@@ -33,9 +33,9 @@ public class Player {
 
     public Player(String name, double balance) {
          if(name.isBlank()) {
-            throw new IllegalArgumentException("Players name must not be blank.");
+            throw new IllegalArgumentException("Player name cannot be blank.");
         } else if (isNegative(balance)) {
-            throw new IllegalArgumentException("Players balance must be positive.");
+            throw new IllegalArgumentException("Player balance must be positive.");
         }
         else {
             this.name = name;
@@ -61,7 +61,7 @@ public class Player {
      */
     public void setName(String name) {
         if(name.isBlank()) {
-            throw new IllegalArgumentException("Players name must not be blank.");
+            throw new IllegalArgumentException("Player name cannot be blank.");
         } else{
             this.name = name;
         }
