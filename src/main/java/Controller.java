@@ -146,13 +146,14 @@ public class Controller {
         }
     }
 
-    public void playBlackJack(ActionEvent e) {
+    /*public void playBlackJack(ActionEvent e) {
         //todo
-    }
+    }*/
 
     /**
      * Print player state to file. (Name, wallet balance)
      * Read and import player state from file.
+     * Updates on screen comment and wallet amount.
      */
     public void printPlayerState() {
         fileHandling.printPlayerState(player);
@@ -163,9 +164,6 @@ public class Controller {
         player.updatePlayer(fileHandling.readPlayerState());
         wallet.setText("Wallet: " + player.getBalance());
         winComment.setText("loaded player state from file.");
-    }
-    public void lowBet() {
-        winComment.setText("Bet too low!");
     }
 
     /**

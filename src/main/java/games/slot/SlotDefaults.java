@@ -9,10 +9,10 @@ public class SlotDefaults {
     private static final SlotSymbol LEMON = new SlotSymbol("Lemon","/LEMON.PNG",3, true);
     private static final SlotSymbol MELON = new SlotSymbol("Melon","/MELON.PNG",3, true);
 
-    private static final SlotSymbol BELL = new SlotSymbol("Bell","",10, true);
+    private static final SlotSymbol BELL = new SlotSymbol("Bell","/BELL.PNG",10, true);
 
-    static final SlotSymbol SEVENS = new SlotSymbol("Seven","/SEVENS.PNG",17, false);
-    static final SlotSymbol BAR = new SlotSymbol("Bar","/BAR.PNG",50, false);
+    private static final SlotSymbol SEVENS = new SlotSymbol("Seven","/SEVENS.PNG",17, false);
+    private static final SlotSymbol BAR = new SlotSymbol("Bar","/BAR.PNG",50, false);
 
-    static final List<SlotSymbol> SLOTS_SYMBOLS = Arrays.asList(CHERRY,LEMON,MELON,SEVENS,BAR);
+    static final List<SlotSymbol> SLOTS_SYMBOLS = Arrays.asList(CHERRY,LEMON,MELON,BELL,SEVENS,BAR);
 }

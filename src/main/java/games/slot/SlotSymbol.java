@@ -24,7 +24,7 @@ public class SlotSymbol {
 
     /**
      *
-     * @return symbol of the slotssymbol
+     * @return Path of the slotssymbol
      */
     public String getPath() {
         return path;
@@ -32,7 +32,7 @@ public class SlotSymbol {
 
     /**
      *
-     * @return symbol value, if needed to rank them accordingly
+     * @return Multiplier value
      */
     public double getMultiplierValue() {
         return multiplierValue;
