@@ -1,6 +1,6 @@
-package interfaces;
+package casino.interfaces;
 
-import player.Player;
+import casino.player.Player;
 
 public interface GameInterface {
 

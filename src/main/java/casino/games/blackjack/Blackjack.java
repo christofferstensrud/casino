@@ -1,14 +1,14 @@
-package games.blackjack;
+package casino.games.blackjack;
 
-import interfaces.GameInterface;
+import casino.interfaces.GameInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import player.Player;
+import casino.player.Player;
 
-import static games.blackjack.BlackjackDefaults.*;
+import static casino.games.blackjack.BlackjackDefaults.*;
 
 public class Blackjack implements GameInterface {
 
@@ -19,7 +19,7 @@ public class Blackjack implements GameInterface {
 
     private final List<String> turnHistory = new ArrayList<>();
 
-    private final List<Action> actions = BlackjackDefaults.ACTIONS;
+    private final List<Action> actions = ACTIONS;
 
     public Blackjack() {
         ArrayList<Card> sortedDeck = generateSortedDeck(); // generates a standard 52-card deck
@@ -222,8 +222,8 @@ public class Blackjack implements GameInterface {
     public ArrayList<Card> generateSortedDeck(){
         ArrayList<Card> sortedDeck = new ArrayList<>(52);
 
-        for (Suit suit : BlackjackDefaults.SUITS) {
-            for (Value value : BlackjackDefaults.VALUES) {
+        for (Suit suit : SUITS) {
+            for (Value value : VALUES) {
                 sortedDeck.add(new Card(suit, value));
             }
         }

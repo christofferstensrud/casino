@@ -1,4 +1,4 @@
-package games.blackjack;
+package casino.games.blackjack;
 
 public class Action {
 

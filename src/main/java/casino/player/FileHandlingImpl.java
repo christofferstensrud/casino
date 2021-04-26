@@ -1,6 +1,6 @@
-package player;
+package casino.player;
 
-import interfaces.FileHandlingInterface;
+import casino.interfaces.FileHandlingInterface;
 
 import java.io.*;
 import java.util.ArrayList;

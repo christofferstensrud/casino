@@ -1,20 +1,22 @@
-package games.slot;
+package casino.games.slot;
 
-import interfaces.GameInterface;
-import player.Player;
-import util.RandomUtils;
-import util.EqualityUtils;
+import casino.interfaces.GameInterface;
+import casino.player.Player;
+import casino.util.RandomUtils;
+import casino.util.EqualityUtils;
 
-import static games.slot.SlotDefaults.*;
+import static casino.games.slot.SlotDefaults.*;
 
 public class Slot implements GameInterface {
 
     private Player registeredPlayer;
-    private final SlotSymbol[] reelResults= new SlotSymbol[3];
-    private int multiplier = 0;
+    private final SlotSymbol[] reelResults;
+    private int multiplier;
+    private String winCom;
 
     public Slot(){
-
+        this.reelResults = new SlotSymbol[3];
+        this.multiplier = 0;
     }
 
     @Override
@@ -25,6 +27,18 @@ public class Slot implements GameInterface {
     @Override
     public void setRegisteredPlayer(Player player) {
         this.registeredPlayer = player;
+    }
+
+    public SlotSymbol[] getReelResults() {
+        return this.reelResults;
+    }
+
+    public String getWinCom() {
+        return this.winCom;
+    }
+
+    public double getMultiplier() {
+        return this.multiplier;
     }
 
 
@@ -46,23 +60,22 @@ public class Slot implements GameInterface {
         SlotSymbol slotSymbol1 = result[0];
         SlotSymbol slotSymbol2 = result[1];
         SlotSymbol slotSymbol3 = result[2];
-        System.out.println("Checking win condition:");
 
         if(EqualityUtils.checkThreeEqual(slotSymbol1, slotSymbol2, slotSymbol3)) { // checks if all three are equal to each other
             multiplier = slotSymbol1.getMultiplierValue();
-            System.out.println("SAME SYMBOLS!");
+            winCom = "SAME SYMBOLS!";
             return true;
         }
 
         if(slotSymbol1.getBasic() && slotSymbol2.getBasic() && slotSymbol3.getBasic()) { // all three are different fruits
             multiplier = slotSymbol1.getMultiplierValue()/2;
-            System.out.println("DIFFERENT FRUITS!");
+            winCom = "DIFFERENT FRUITS!";
             return true;
         }
 
         // if they are not equal or only different fruits, no pay out.
         multiplier = 0;
-        System.out.println("No win.");
+        winCom = "No win!";
         return false;
     }
 
@@ -74,7 +87,6 @@ public class Slot implements GameInterface {
      *
      */
     private void spinReel() {
-        System.out.println("Spinning...");
         for (int i = 0; i < 3; i++) {
             int result = RandomUtils.randomBetween(0, SLOTS_SYMBOLS.size() - 1);
             reelResults[i] = SLOTS_SYMBOLS.get(result);
@@ -90,67 +102,34 @@ public class Slot implements GameInterface {
      * @param bet the bet the player makes
      * @return the resulting payout.
      */
-    public int calculatePayout(int multiplier, int bet) {
-        int payout = multiplier * bet;
-
-        registeredPlayer.addToBalance(payout);
-
-        System.out.println("Updated player balance. New balance: " + registeredPlayer.getBalance());
-
-        return payout;
-    }
-
-    /**
-     * Helper function to convert a list of SlotSymbols to readable, printable String.
-     *
-     * @param slotSymbols array of SlotSymbols.
-     * @return SlotSymbols as String.
-     */
-    public String symbolsToString(SlotSymbol[] slotSymbols){
-        StringBuilder result = new StringBuilder();
-
-        for (SlotSymbol slotSymbol : slotSymbols) {
-            result.append(slotSymbol.getName());
-            result.append(" ");
-        }
-
-        return result.toString();
+    private int calculatePayout(int multiplier, int bet) {
+        return multiplier * bet;
     }
 
     /**
      * Plays the machine.
      *
-     * TODO: JavaFX Compatibility.
-     *
      * @param bet the players bet.
      * @return String with the results.
      */
-    public String play(int bet) {
+    public boolean play(int bet) {
         if (registeredPlayer == null){
             throw new NullPointerException("No player detected!");
         }
         if (registeredPlayer.getBalance() < 0){
-            System.out.println("Player balance is 0!");
-            return "Please add more to balance before trying again.";
+            return false;
         }
         if (registeredPlayer.getBalance() < bet){
-            System.out.println("Player balance too low for that bet!");
-            return "Please change bet.";
+            return false;
         }
 
         registeredPlayer.removeFromBalance(bet);
 
         spinReel();
-
-        String result = "Your slots results are: ";
-        if (checkWin(reelResults)) {
-            result += symbolsToString(reelResults) + " Nice play!\n";
-
-        } else {
-            result += symbolsToString(reelResults) + " Try again!\n";
+        if(checkWin(reelResults)){
+            registeredPlayer.addToBalance(calculatePayout(multiplier, bet));
         }
-        result += "Your payout: " + calculatePayout(multiplier, bet);
-        return result;
-    }
 
+        return true;
+    }
 }

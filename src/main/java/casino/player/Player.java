@@ -1,10 +1,7 @@
-package player;
+package casino.player;
 
-import games.blackjack.Card;
+import casino.games.blackjack.Card;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,7 +116,6 @@ public class Player {
         return val1 > val2;
     }
 
-
     // Blackjack
 
     /**
@@ -153,63 +149,4 @@ public class Player {
         }
         return Integer.toString(softSum);
     }
-
 }
-
-// File handling
-
-/**
- * Returns the players payout history as a list of Strings
- * @return payoutHistory
- */
-    /*public List<String> getPayoutHistory() {
-        return payoutHistory;
-    }*/
-
-/**
- // * @param payout to add to the payout history
- */
-    /*public void addToPayoutHistory(String game, String resultsAsString, int bet, int payout) {
-
-        if (game.isBlank()){
-            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'game' cannot be blank.");
-        } else if (resultsAsString.isBlank()){
-            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'resultsAsString' cannot be blank.");
-        } else if (isNegative(bet)) {
-            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'bet' cannot be negative.");
-        } else if (isNegative(payout)) {
-            throw new IllegalArgumentException("Cannot add payout to payoutHistory: Field 'payout' cannot be negative.");
-        } else {
-        this.payoutHistory.add(game +
-                " | " +
-                resultsAsString +
-                " | " +
-                bet +
-                " | " +
-                payout);
-        }
-    }*/
-
-    /*public String printPayoutHistoryToFile() throws IOException {
-        try {
-            FileWriter payoutHistoryFileWriter = new FileWriter(FILE_NAME);
-            File payoutHistoryFile = new File(FILE_NAME);
-
-            StringBuilder result = new StringBuilder();
-            for (String line : payoutHistory) {
-                result.append(line);
-                result.append("\n");
-            }
-            String header = "Game | Results | Bet | Payout \n";
-            payoutHistoryFileWriter.write(header);
-            payoutHistoryFileWriter.append(result.toString());
-            payoutHistoryFileWriter.close();
-
-            return payoutHistoryFile.getPath();
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        return "";
-    }*/

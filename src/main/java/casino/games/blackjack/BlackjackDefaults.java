@@ -1,6 +1,6 @@
-package games.blackjack;
+package casino.games.blackjack;
 
-import player.Player;
+import casino.player.Player;
 
 import java.util.Arrays;
 import java.util.List;

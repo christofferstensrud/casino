@@ -1,6 +1,7 @@
 package games.slot;
 
-import player.Player;
+import casino.games.slot.Slot;
+import casino.player.Player;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

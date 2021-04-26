@@ -1,4 +1,4 @@
-package util;
+package casino.util;
 
 public class EqualityUtils {
 

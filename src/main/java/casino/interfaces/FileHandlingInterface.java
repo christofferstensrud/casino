@@ -1,10 +1,8 @@
-package interfaces;
+package casino.interfaces;
 
-import player.Player;
+import casino.player.Player;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 public interface FileHandlingInterface {
 
