@@ -51,14 +51,14 @@ public class FileHandlingImpl implements FileHandlingInterface {
     @Override
     public boolean printPlayerState() {
         try {
-            FileWriter playerFileWriter = new FileWriter(FILE_PATH);
+            FileWriter fw = new FileWriter(FILE_PATH);
 
             String playerData = player.getName() +
                     "\n" +
                     player.getBalance();
 
-            playerFileWriter.write(playerData);
-            playerFileWriter.close();
+            fw.write(playerData);
+            fw.close();
 
 
             return true;
