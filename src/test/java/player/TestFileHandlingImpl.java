@@ -25,12 +25,10 @@ public class TestFileHandlingImpl {
     public void test_read_file_no_file() throws IOException {
         FileHandlingImpl fileHandling = new FileHandlingImpl(player);
 
-        Exception exception = assertThrows(
-                FileNotFoundException.class, fileHandling::readPlayerState);
+        fileHandling.readPlayerState();
 
-        String expectedMessage = "Datafile "+player.getName()+"_player_data.txt"+" for player "+player.getName()+" does not exist.";
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+        assertEquals(fileHandling.readPlayerState().getName(), player.getName());
+
     }
 
     @Test

@@ -131,5 +131,4 @@ public class TestPlayer {
         assertTrue(actualMessage.contains(expectedMessage));
         assertEquals(10, player.getBalance(),0);
     }
-
 }

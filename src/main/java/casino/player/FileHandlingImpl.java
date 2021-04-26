@@ -26,9 +26,8 @@ public class FileHandlingImpl implements FileHandlingInterface {
                 playerData.add(line);
             }
         } catch (IOException e){
-            //e.printStackTrace();
             printPlayerState();
-            //throw new FileNotFoundException("Datafile "+FILE_PATH+" for player "+player.getName()+" does not exist.");
+            throw new FileNotFoundException("Datafile "+FILE_PATH+" for player "+player.getName()+" does not exist.");
         }
 
         String name = playerData.get(0);
