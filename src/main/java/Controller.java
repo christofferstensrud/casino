@@ -1,4 +1,5 @@
 import games.slot.Slot;
+import player.FileHandlingImpl;
 import player.Player;
 
 import javafx.scene.image.Image;
@@ -49,17 +50,21 @@ public class Controller {
     @FXML
     Parent root;
 
-    public Slot slotsMachine = new Slot();
-    public Player player;
+    private Slot slotsMachine = new Slot();
+    private Player player;
+    private FileHandlingImpl fileHandling;
+
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         if(slotsMachine.getRegisteredPlayer() == null){
             player = new Player("player", 100);
             slotsMachine.setRegisteredPlayer(player);
+            fileHandling = new FileHandlingImpl(player);
+            readPlayerState();
         }
-        //menuImage1.setImage(new Image("/Icon.png"));
-        //menuImage2.setImage(new Image("/Icon.png"));
+
+
     }
 
     /**
@@ -68,20 +73,21 @@ public class Controller {
      */
     @FXML
     public void spin() {
-        ArrayList<ImageView> imageViewsList = new ArrayList<>(Arrays.asList(FirstSlot, SecondSlot, ThirdSlot));
+        if(slotsMachine.play(Integer.parseInt(inputBet.getText()))){
+            ArrayList<ImageView> imageViewsList = new ArrayList<>(Arrays.asList(FirstSlot, SecondSlot, ThirdSlot));
+            for (int i = 0; i<3; i++) {
+                imageViewsList.get(i).setImage(new Image(getClass()
+                        .getResourceAsStream(slotsMachine
+                                .getReelResults()[i]
+                                .getPath())));
+            }
 
-        slotsMachine.play(Integer.parseInt(inputBet.getText()));
-
-        for (int i = 0; i<3; i++) {
-            imageViewsList.get(i).setImage(new Image(getClass()
-                    .getResourceAsStream(slotsMachine
-                            .getReelResults()[i]
-                            .getPath())));
+            wallet.setText("Wallet: " + player.getBalance());
+            multip.setText("Multiplier: " + slotsMachine.getMultiplier() + "x");
+            winComment.setText(slotsMachine.getWinCom());
+        } else {
+            winComment.setText("Balance too low!");
         }
-
-        wallet.setText("Wallet: " + Double.toString(player.getBalance()));
-        multip.setText("Multiplier: " + Double.toString(slotsMachine.getMultiplier()) + "x");
-        winComment.setText(slotsMachine.getWinCom());
     }
 
     /**
@@ -107,7 +113,7 @@ public class Controller {
      *
      * @param event Button click
      */
-    public void gotoSlots(ActionEvent event) {
+    public void gotoSlots(ActionEvent event) throws IOException {
         try {
             root = FXMLLoader.load(getClass().getResource("Slots.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -119,6 +125,7 @@ public class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        player.updatePlayer(fileHandling.readPlayerState());
     }
 
     /**
@@ -146,15 +153,19 @@ public class Controller {
     /**
      * Print player state to file. (Name, wallet balance)
      * Read and import player state from file.
-     *
-     * @throws IOException
      */
-    public void printPlayerState() throws IOException {
-        player.printPlayerState();
+    public void printPlayerState() {
+        fileHandling.printPlayerState(player);
+        winComment.setText("Printed player info to file.");
     }
 
     public void readPlayerState() throws IOException {
-        player.readPlayerState();
+        player.updatePlayer(fileHandling.readPlayerState());
+        wallet.setText("Wallet: " + player.getBalance());
+        winComment.setText("loaded player state from file.");
+    }
+    public void lowBet() {
+        winComment.setText("Bet too low!");
     }
 
     /**

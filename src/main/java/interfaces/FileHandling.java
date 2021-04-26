@@ -11,7 +11,7 @@ public interface FileHandling {
     /**
      * @return the state of the player.
      */
-    Player readPlayerState(String filePath) throws IOException;
+    Player readPlayerState() throws IOException;
 
     /**
      * Prints the state of a player.

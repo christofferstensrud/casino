@@ -16,7 +16,7 @@ public class FileHandlingImpl implements FileHandling {
     }
 
     @Override
-    public Player readPlayerState(String filePath) throws IOException {
+    public Player readPlayerState() throws IOException {
         //FileReader playerFileReader = new FileReader(FILE_NAME);
         List<String> playerData = new ArrayList<>();
 

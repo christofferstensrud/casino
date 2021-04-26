@@ -86,7 +86,6 @@ public class Slot implements Game {
      *
      */
     private void spinReel() {
-        System.out.println("Spinning...");
         for (int i = 0; i < 3; i++) {
             int result = RandomUtils.randomBetween(0, SLOTS_SYMBOLS.size() - 1);
             reelResults[i] = SLOTS_SYMBOLS.get(result);
@@ -106,9 +105,6 @@ public class Slot implements Game {
         double payout = multiplier * bet;
 
         registeredPlayer.addToBalance(payout);
-        registeredPlayer.addToPayoutHistory("Slots", symbolsToString(reelResults), bet, payout);
-
-        System.out.println("Updated player balance. New balance: " + registeredPlayer.getBalance());
 
         return payout;
     }
@@ -136,32 +132,23 @@ public class Slot implements Game {
      * @param bet the players bet.
      * @return String with the results.
      */
-    public String play(double bet) {
+    public boolean play(double bet) {
         if (registeredPlayer == null){
             throw new NullPointerException("No player detected!");
         }
         if (registeredPlayer.getBalance() < 0){
-            System.out.println("Player balance is 0!");
-            return "Please add more to balance before trying again.";
+            return false;
         }
         if (registeredPlayer.getBalance() < bet){
-            System.out.println("Player balance too low for that bet!");
-            return "Please change bet.";
+            return false;
         }
 
         registeredPlayer.removeFromBalance(bet);
 
         spinReel();
+        checkWin(reelResults);
 
-        String result = "Your slots results are: ";
-        if (checkWin(reelResults)) {
-            result += symbolsToString(reelResults) + " Nice play!\n";
-
-        } else {
-            result += symbolsToString(reelResults) + " Try again!\n";
-        }
-        result += "Your payout: " + calculatePayout(multiplier, bet);
-        return result;
+        return true;
     }
 
 }

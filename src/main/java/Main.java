@@ -18,7 +18,7 @@ public class Main extends Application{
     /**
      * Launch FX GUI. Sets application title and icon
      *
-     * @param stage
+     * @param stage stage
      * @throws Exception If error in FX launch or load
      */
     @Override
@@ -38,6 +38,5 @@ public class Main extends Application{
         Image icon = new Image(iconInput);
         stage.getIcons().add(icon);
         stage.setTitle("Casino");
-
     }
 }
