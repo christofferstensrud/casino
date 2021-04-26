@@ -12,13 +12,13 @@
 <AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="casino.Controller">
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="800.0" prefWidth="1200.0">
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: Green;">
-                  <ImageView id="1" fx:id="FirstSlot" fitHeight="280.0" fitWidth="280.0" layoutX="91.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="1" fx:id="FirstSlot" fitHeight="280.0" fitWidth="280.0" layoutX="91.0" layoutY="58.0" pickOnBounds="true">
                         <Image url="@../../resources/images/BAR.PNG" />
                   </ImageView>
-                  <ImageView id="2" fx:id="SecondSlot" fitHeight="280.0" fitWidth="280.0" layoutX="462.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="2" fx:id="SecondSlot" fitHeight="280.0" fitWidth="280.0" layoutX="462.0" layoutY="58.0" pickOnBounds="true">
                         <Image url="@../../resources/images/BAR.PNG" />
                   </ImageView>
-                  <ImageView id="3" fx:id="ThirdSlot" fitHeight="280.0" fitWidth="280.0" layoutX="833.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="3" fx:id="ThirdSlot" fitHeight="280.0" fitWidth="280.0" layoutX="833.0" layoutY="58.0" pickOnBounds="true">
                       <Image url="@../../resources/images/BAR.PNG" />
                   </ImageView>
             </AnchorPane>

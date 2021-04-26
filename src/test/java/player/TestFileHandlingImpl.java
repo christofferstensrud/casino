@@ -80,7 +80,7 @@ public class TestFileHandlingImpl {
         Exception exception = assertThrows(
                 IllegalArgumentException.class, fileHandling::readPlayerState);
 
-        String expectedMessage = "Invalid file. Player balance must be positive.";
+        String expectedMessage = "Invalid file. Player balance must be an integer.";
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
     }
