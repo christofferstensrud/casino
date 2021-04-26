@@ -1,15 +1,17 @@
 package games.slot;
 
+import org.junit.Before;
 import player.Player;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class TestSlot {
 
-    protected Player player;
-    protected Slot slot;
+    public Player player;
+    public Slot slot;
 
-    protected void setUp(){
+    @Before
+    public void setUp(){
         player = new Player("testPerson");
         slot = new Slot();
     }
