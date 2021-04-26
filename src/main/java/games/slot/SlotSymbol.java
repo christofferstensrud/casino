@@ -3,13 +3,13 @@ package games.slot;
 public class SlotSymbol {
 
     private final String name;
-    private final char symbol;
+    private final String path;
     private final double multiplierValue;
     private final boolean basic;
 
-    public SlotSymbol(String name, char symbol, double multiplierValue, boolean isBasic){
+    public SlotSymbol(String name, String path, double multiplierValue, boolean isBasic){
         this.name = name;
-        this.symbol = symbol;
+        this.path = path;
         this.multiplierValue = multiplierValue;
         this.basic = isBasic;
     }
@@ -26,8 +26,8 @@ public class SlotSymbol {
      *
      * @return symbol of the slotssymbol
      */
-    public char getSymbol() {
-        return symbol;
+    public String getPath() {
+        return path;
     }
 
     /**

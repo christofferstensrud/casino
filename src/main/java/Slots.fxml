@@ -3,22 +3,33 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: Green;">
                <children>
-                  <ImageView id="Slot1" fitHeight="150.0" fitWidth="150.0" layoutX="31.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView id="Slot3" fitHeight="150.0" fitWidth="150.0" layoutX="416.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView id="Slot2" fitHeight="150.0" fitWidth="150.0" layoutX="224.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="1" fx:id="FirstSlot" fitHeight="150.0" fitWidth="150.0" layoutX="31.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/BAR.PNG" />
+                     </image></ImageView>
+                  <ImageView id="2" fx:id="SecondSlot" fitHeight="150.0" fitWidth="150.0" layoutX="224.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/BAR.PNG" />
+                     </image></ImageView>
+                  <ImageView id="3" fx:id="ThirdSlot" fitHeight="150.0" fitWidth="150.0" layoutX="416.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/BAR.PNG" />
+                     </image></ImageView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: LimeGreen;">
+          <AnchorPane fx:id="multiplier" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: LimeGreen;">
                <children>
                   <Button layoutX="14.0" layoutY="157.0" mnemonicParsing="false" onAction="#gotoMain" text="Exit to menu" />
                   <Button fx:id="Spin" layoutX="246.0" layoutY="66.0" mnemonicParsing="false" onAction="#getBet" prefHeight="56.0" prefWidth="107.0" text="SPIN">
@@ -26,7 +37,10 @@
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="inputBet" layoutX="225.0" layoutY="145.0" onAction="#getBet" />
+                  <TextField fx:id="inputBet" layoutX="225.0" layoutY="145.0" onAction="#getBet" promptText="Bet" />
+                  <TextField fx:id="wallet" layoutX="422.0" layoutY="145.0" text="Wallet: 100" />
+                  <Text fx:id="winComment" layoutX="130.0" layoutY="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" textAlignment="CENTER" wrappingWidth="338.0" />
+                  <Text fx:id="multip" layoutX="246.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="Multiplier: 0.0 x" textAlignment="CENTER" wrappingWidth="107.0" />
                </children>
             </AnchorPane>
         </items>

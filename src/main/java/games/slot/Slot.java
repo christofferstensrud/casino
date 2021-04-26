@@ -19,6 +19,7 @@ public class Slot implements Game {
     private Player registeredPlayer;
     private final SlotSymbol[] reelResults= new SlotSymbol[3];
     private double multiplier = 0;
+    private String winCom;
 
     public Slot(){
 
@@ -32,6 +33,18 @@ public class Slot implements Game {
     @Override
     public void setRegisteredPlayer(Player player) {
         this.registeredPlayer = player;
+    }
+
+    public SlotSymbol[] getReelResults() {
+        return this.reelResults;
+    }
+
+    public String getWinCom() {
+        return this.winCom;
+    }
+
+    public double getMultiplier() {
+        return this.multiplier;
     }
 
 
@@ -53,23 +66,22 @@ public class Slot implements Game {
         SlotSymbol slotSymbol1 = result[0];
         SlotSymbol slotSymbol2 = result[1];
         SlotSymbol slotSymbol3 = result[2];
-        System.out.println("Checking win condition:");
 
         if(EqualityUtils.checkThreeEqual(slotSymbol1, slotSymbol2, slotSymbol3)) { // checks if all three are equal to each other
             multiplier = slotSymbol1.getMultiplierValue();
-            System.out.println("SAME SYMBOLS!");
+            winCom = "SAME SYMBOLS!";
             return true;
         }
 
         if(slotSymbol1.getBasic() && slotSymbol2.getBasic() && slotSymbol3.getBasic()) { // all three are different fruits
             multiplier = slotSymbol1.getMultiplierValue()/2;
-            System.out.println("DIFFERENT FRUITS!");
+            winCom = "DIFFERENT FRUITS!";
             return true;
         }
 
         // if they are not equal or only different fruits, no pay out.
         multiplier = 0;
-        System.out.println("No win.");
+        winCom = "No win!";
         return false;
     }
 

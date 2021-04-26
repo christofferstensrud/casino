@@ -1,5 +1,5 @@
-import games.Blackjack;
-import games.SlotsMachine;
+import games.blackjack.Blackjack;
+import games.slot.Slot;
 import javafx.scene.control.TextField;
 import player.Player;
 

@@ -1,10 +1,12 @@
-
-
-import games.SlotsMachine;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import games.slot.Slot;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import player.Player;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,33 +19,60 @@ import java.io.IOException;
 public class Controller {
 
     @FXML
+    ImageView FirstSlot;
+    @FXML
+    ImageView SecondSlot;
+    @FXML
+    ImageView ThirdSlot;
+
+    @FXML
+    private AnchorPane mainPane;
+    @FXML
     private TextField inputBet;
-
     @FXML
-    private Stage stage;
-
+    private TextField wallet = new TextField();
     @FXML
-    private Scene scene;
-
+    private Text multip = new Text();
     @FXML
-    private Parent root;
+    private Text winComment = new Text();
+    @FXML
+    Stage stage;
+    @FXML
+    Scene scene;
+    @FXML
+    Parent root;
 
-    public SlotsMachine slotsMachine = new SlotsMachine();
+    public Slot slotsMachine = new Slot();
     public Player player;
 
     @FXML
     public void initialize() {
         if(slotsMachine.getRegisteredPlayer() == null){
-            player = new Player("player", 50);
+            player = new Player("player", 100);
             slotsMachine.setRegisteredPlayer(player);
         }
     }
 
-    public void getBet(ActionEvent e) {
-        //System.out.println(inputBet.getText());
-        //System.out.println(player.getName());
+    @FXML
+    public void getBet() {
+        if(inputBet.getText() != "") { //TODO Fix validation
+            slotsMachine.play(Integer.parseInt(inputBet.getText()));
+        } else {
+            multip.setText("Bet a valid number!");
+        }
 
-        System.out.println(slotsMachine.play(Integer.parseInt(inputBet.getText())));
+        Image slot1im = new Image(getClass().getResourceAsStream(slotsMachine.getReelResults()[0].getPath()));
+        Image slot2im = new Image(getClass().getResourceAsStream(slotsMachine.getReelResults()[1].getPath()));
+        Image slot3im = new Image(getClass().getResourceAsStream(slotsMachine.getReelResults()[2].getPath()));
+
+        FirstSlot.setImage(slot1im);
+        SecondSlot.setImage(slot2im);
+        ThirdSlot.setImage(slot3im);
+
+        wallet.setText("Wallet: " + Double.toString(player.getBalance()));
+        winComment.setText(slotsMachine.getWinCom());
+        multip.setText("Multiplier" + Double.toString(slotsMachine.getMultiplier()) + "x");
+
     }
 
     public void gotoMain(ActionEvent event) {
@@ -90,15 +119,14 @@ public class Controller {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Slots.fxml"));
         root = loader.load();
-
-
     }
 
     public void playBlackJack(ActionEvent e) {
         //todo
     }
 
-    public void updateResults(){
-        //TODO Path til symboler i SlotsDefaults. Finne bilder, Exit button, Balance visuelt, Resizing (set resizable false)
+    public void logout(ActionEvent event) {
+        stage = (Stage) mainPane.getScene().getWindow();
+        stage.close();
     }
 }
